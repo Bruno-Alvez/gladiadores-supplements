@@ -19,7 +19,7 @@ const categories = [
 export default function Categories() {
   const [sliderRef, instanceRef] = useKeenSlider({
     loop: false,
-    slides: { perView: 5, spacing: 4 },
+    slides: { perView: 6, spacing: 4 },
     breakpoints: {
       '(max-width: 768px)': {
         slides: { perView: 3, spacing: 8 },
@@ -37,8 +37,8 @@ export default function Categories() {
     <section className="w-full bg-black py-16 px-4 relative overflow-hidden">
       {/* Tittle */}
       <div className="text-center mb-12 pb-6">
-        <h2 className="text-4xl font-extrabold text-white tracking-tight">
-          CONHECA NOSSOS <span className="text-purple-500">PRODUTOS</span>
+        <h2 className="text-3xl font-extrabold text-white tracking-tight">
+          BUSQUE POR <span className="text-purple-500">CATEGORIA</span>
         </h2>
         <p className="text-zinc-400 text-sm mt-2">Explore as melhores categorias para sua performance</p>
       </div>
