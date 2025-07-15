@@ -1,13 +1,17 @@
 import Categories from '@/components/Categories'
 import Hero from '@/components/Hero'
-import SectionDivider from '@/components/SectionDivider'
+import HeroDivider from '@/components/HeroDivider'
+import SupplementsSection from '@/components/SupplementsSection'
+import TestimonialsSection from '@/components/TestimonialsSection'
 
 export default function Home() {
   return (
     <main>
       <Hero />
-      <SectionDivider />
+      <HeroDivider />
       <Categories />
+      <SupplementsSection />
+      <TestimonialsSection />
     </main>
   )
 }

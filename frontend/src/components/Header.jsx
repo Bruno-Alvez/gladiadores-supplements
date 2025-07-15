@@ -50,9 +50,11 @@ export default function Header() {
       {/* Dropdown menu */}
       {menuOpen && (
         <nav className="flex flex-col gap-4 bg-black bg-opacity-90 p-6 text-white">
-          <Link href="#products" className="hover:text-purple-500 transition">Products</Link>
-          <Link href="#community" className="hover:text-purple-500 transition">Community</Link>
-          <Link href="#contact" className="hover:text-purple-500 transition">Contact</Link>
+          <Link href="#products" className="hover:text-purple-500 transition">Glad Shock</Link>
+          <Link href="#community" className="hover:text-purple-500 transition">Sobre Nós</Link>
+          <Link href="#contact" className="hover:text-purple-500 transition">Depoimentos</Link>
+          <Link href="#contact" className="hover:text-purple-500 transition">Principais Dúvidas</Link>
+          <Link href="#contact" className="hover:text-purple-500 transition">Fale Conosco</Link>
         </nav>
       )}
     </header>

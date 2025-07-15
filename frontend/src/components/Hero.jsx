@@ -30,22 +30,34 @@ export default function Hero() {
   }
 
   const slides = [
-    '/images/hero/slide1.jpeg',
-    '/images/hero/slide2.jpeg',
-    '/images/hero/slide3.jpeg',
+    {
+      desktop: '/images/hero/slide1-desktop.jpeg',
+      mobile: '/images/hero/slide1-mobile.jpeg',
+    },
+    {
+      desktop: '/images/hero/slide2-desktop.jpeg',
+      mobile: '/images/hero/slide2-mobile.jpeg',
+    },
+    {
+      desktop: '/images/hero/slide3-desktop.jpeg',
+      mobile: '/images/hero/slide3-mobile.jpeg',
+    },
   ]
 
   return (
     <section className="relative w-full h-[100vh] overflow-hidden bg-black">
       <div ref={sliderRef} className="keen-slider w-full h-full">
-        {slides.map((src, idx) => (
+        {slides.map((slide, idx) => (
           <div className="keen-slider__slide" key={idx}>
-            <img
-              src={src}
-              alt={`Hero ${idx}`}
-              className="w-full h-full object-cover"
-              style={{ objectPosition: 'center 100%' }}
-            />
+            <picture>
+              <source media="(max-width: 767px)" srcSet={slide.mobile} />
+              <img
+                src={slide.desktop}
+                alt={`Hero ${idx}`}
+                className="w-full h-full object-cover"
+                style={{ objectPosition: 'center' }}
+              />
+            </picture>
           </div>
         ))}
       </div>
