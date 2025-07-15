@@ -1,4 +1,5 @@
 import AboutStoreSection from '@/components/AboutStoreSection'
+import BestSellersSection from '@/components/BestSellerSection'
 import Categories from '@/components/Categories'
 import Hero from '@/components/Hero'
 import HeroDivider from '@/components/HeroDivider'
@@ -14,6 +15,7 @@ export default function Home() {
       <SupplementsSection />
       <TestimonialsSection />
       <AboutStoreSection />
+      <BestSellersSection />
     </main>
   )
 }
