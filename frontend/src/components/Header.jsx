@@ -1,29 +1,16 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   return (
-    <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-black shadow-md' : 'bg-transparent'
-      }`}
-    >
-      <div className="flex items-center justify-between px-6 py-4">
+    <header className="fixed top-0 left-0 w-full z-50 bg-black shadow-md transition-all">
+      <div className="flex items-center justify-between px-6 py-1">
         {/* Logo */}
         <Link href="/">
           <Image
@@ -45,7 +32,7 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Dropdown */}
+      {/* Dropdown menu */}
       {menuOpen && (
         <nav className="flex flex-col gap-4 bg-black bg-opacity-90 p-6 text-white">
           <Link href="#products" className="hover:text-purple-500 transition">
