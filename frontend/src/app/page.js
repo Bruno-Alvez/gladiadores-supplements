@@ -1,3 +1,4 @@
+import AboutStoreSection from '@/components/AboutStoreSection'
 import Categories from '@/components/Categories'
 import Hero from '@/components/Hero'
 import HeroDivider from '@/components/HeroDivider'
@@ -12,6 +13,7 @@ export default function Home() {
       <Categories />
       <SupplementsSection />
       <TestimonialsSection />
+      <AboutStoreSection />
     </main>
   )
 }
