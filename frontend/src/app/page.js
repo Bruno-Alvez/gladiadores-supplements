@@ -1,6 +1,13 @@
+import Categories from '@/components/Categories'
+import Hero from '@/components/Hero'
+import SectionDivider from '@/components/SectionDivider'
+
 export default function Home() {
   return (
-    <main className="p-4">
+    <main>
+      <Hero />
+      <SectionDivider />
+      <Categories />
     </main>
-  );
+  )
 }
