@@ -12,17 +12,19 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-black shadow-md transition-all">
       <div className="flex items-center justify-between px-4 py-2 max-w-7xl mx-auto">
-        {/* Menu button */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="text-white hover:text-purple-500 transition-colors cursor-pointer"
-          aria-label="Toggle Menu"
-        >
-          {menuOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        {/* Logo aligned to the left */}
+        <Link href="/" className="mr-4">
+          <Image
+            src="/logo-gladiadores.jpg"
+            alt="Gladiadores Suplementos"
+            width={120}
+            height={40}
+            priority
+          />
+        </Link>
 
-        {/* Search */}
-        <div className="flex-1 px-4 max-w-md">
+        {/* Search bar centered between logo and menu */}
+        <div className="flex-1 mx-4 max-w-md">
           <div className="flex items-center bg-zinc-900 border border-zinc-700 rounded-full px-4 py-1.5">
             <Search size={18} className="text-zinc-400" />
             <input
@@ -35,16 +37,14 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Logo */}
-        <Link href="/" className="ml-4">
-          <Image
-            src="/logo-gladiadores.jpg"
-            alt="Gladiadores Suplementos"
-            width={120}
-            height={40}
-            priority
-          />
-        </Link>
+        {/* Menu button aligned to the right */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="text-white hover:text-purple-500 transition-colors cursor-pointer ml-4"
+          aria-label="Toggle Menu"
+        >
+          {menuOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
       </div>
 
       {/* Dropdown menu */}

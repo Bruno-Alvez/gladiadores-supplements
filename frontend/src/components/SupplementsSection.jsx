@@ -2,7 +2,7 @@
 
 export default function SupplementsSection() {
   return (
-    <section className="bg-black text-white py-16 px-6 text-center">
+    <section className="bg-black text-white py-16 px-6 text-center mt-22">
       <h2 className="text-3xl font-extrabold mb-6 tracking-tight">
         <span className="text-purple-500">SUPLEMENTOS</span> GLADIADORES
       </h2>

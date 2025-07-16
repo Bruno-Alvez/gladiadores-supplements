@@ -45,7 +45,7 @@ export default function GoalSearchSection() {
   })
 
   return (
-    <section className="w-full bg-black py-16 px-6">
+    <section className="w-full bg-black py-16 px-6 mt-22">
       <div className="text-center mb-12">
         <h2 className="text-3xl font-extrabold text-white">
           BUSQUE POR <span className="text-purple-500">OBJETIVO</span>
