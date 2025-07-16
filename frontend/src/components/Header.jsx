@@ -28,7 +28,7 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Classes for links
+  // Classes for nav links
   const linkClass = (id) =>
     `transition hover:text-purple-500 ${
       activeSection === id ? 'text-purple-500 font-semibold' : ''
@@ -36,7 +36,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-black shadow-md transition-all">
-      <div className="grid grid-cols-[auto_1fr_auto] items-center px-4 py-2 max-w-7xl mx-auto gap-4 w-full">
+      <div className="flex items-center justify-between px-4 py-2 max-w-7xl mx-auto w-full">
         
         {/* Logo aligned left */}
         <Link href="/">
@@ -49,8 +49,8 @@ export default function Header() {
           />
         </Link>
 
-        {/* Search bar centered */}
-        <div className="w-full max-w-md mx-auto">
+        {/* Search bar centered and hidden on mobile */}
+        <div className="hidden sm:block w-full max-w-md mx-4">
           <div className="flex items-center bg-zinc-900 border border-zinc-700 rounded-full px-4 py-1.5">
             <Search size={18} className="text-zinc-400" />
             <input
@@ -66,7 +66,7 @@ export default function Header() {
         {/* Menu button aligned right */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="text-white hover:text-purple-500 transition-colors cursor-pointer"
+          className="text-white hover:text-purple-500 transition-colors cursor-pointer ml-2"
           aria-label="Toggle Menu"
         >
           {menuOpen ? <X size={28} /> : <Menu size={28} />}

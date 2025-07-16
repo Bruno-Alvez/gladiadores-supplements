@@ -64,14 +64,14 @@ export default function Hero() {
 
       {/* Social icons */}
       <div className="absolute top-1/2 right-6 transform -translate-y-1/2 flex flex-col gap-6 z-10">
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-          <Instagram className="text-white hover:text-purple-500 transition" size={28} />
+        <a href="https://www.instagram.com/gladiadores.suplementos?igsh=MWpza202MTNyMGQ4bw==" target="_blank" rel="noopener noreferrer">
+          <Instagram className="text-white hover:text-purple-500 transition" size={32} />
         </a>
         <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-          <Facebook className="text-white hover:text-purple-500 transition" size={28} />
+          <Facebook className="text-white hover:text-purple-500 transition" size={32} />
         </a>
         <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
-          <Youtube className="text-white hover:text-purple-500 transition" size={28} />
+          <Youtube className="text-white hover:text-purple-500 transition" size={32} />
         </a>
       </div>
     </section>
