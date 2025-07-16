@@ -2,6 +2,7 @@ import AboutStoreSection from '@/components/AboutStoreSection'
 import BestSellersSection from '@/components/BestSellerSection'
 import Categories from '@/components/Categories'
 import Faq from '@/components/Faq'
+import GladShockHighlight from '@/components/GladShockHighlight'
 import GoalSearchSection from '@/components/GoalSearchSection'
 import Hero from '@/components/Hero'
 import HeroDivider from '@/components/HeroDivider'
@@ -22,6 +23,7 @@ export default function Home() {
       <GoalSearchSection />
       <Faq />
       <Newsletter />
+      <GladShockHighlight />
     </main>
   )
 }

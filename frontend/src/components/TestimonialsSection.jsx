@@ -33,7 +33,7 @@ export default function TestimonialsSection() {
   return (
     <section className="w-full bg-black py-16 px-4 relative">
       <div className="text-center mb-10">
-        <h2 className="text-3xl sm:text-4xl font-bold text-white">
+        <h2 className="text-3xl sm:text-3xl font-bold text-white">
           DEPOIMENTOS <span className="text-purple-500">REAIS</span>
         </h2>
         <p className="text-zinc-400 text-sm mt-2">Veja o que nossos clientes dizem sobre nós</p>
