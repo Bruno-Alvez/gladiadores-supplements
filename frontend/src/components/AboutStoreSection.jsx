@@ -7,7 +7,7 @@ export default function AboutStoreSection() {
     <section className="w-full bg-black px-4 py-20">
       {/* Title */}
       <div className="text-center mb-12">
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
+        <h2 className="text-3xl sm:text-3xl font-extrabold text-white">
           SOBRE <span className="text-purple-500">A LOJA</span>
         </h2>
         <p className="text-zinc-400 text-sm mt-2">

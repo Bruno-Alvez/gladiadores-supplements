@@ -37,8 +37,8 @@ export default function Faq() {
     <section className="w-full bg-black py-16 px-4 text-white">
       {/* Título */}
       <div className="text-center mb-10">
-        <h2 className="text-4xl font-extrabold tracking-tight">
-          Dúvidas <span className="text-purple-500">Frequentes</span>
+        <h2 className="text-3xl font-extrabold tracking-tight">
+          DÚVIDAS <span className="text-purple-500">FREQUENTES</span>
         </h2>
         <p className="text-zinc-400 text-sm mt-2">Tudo o que você precisa saber antes de comprar</p>
       </div>
