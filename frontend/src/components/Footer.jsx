@@ -13,7 +13,7 @@ export default function Footer() {
         <div className="flex-1 flex flex-col items-center md:items-end justify-center space-y-4 pr-4 md:pr-12 relative">
           <h4 className="font-semibold mb-2">Redes Sociais</h4>
           <div className="flex gap-4">
-            <Link href="https://instagram.com" target="_blank">
+            <Link href="https://www.instagram.com/gladiadores.suplementos?igsh=MWpza202MTNyMGQ4bw==" target="_blank">
               <Instagram className="hover:text-zinc-300 transition" />
             </Link>
             <Link href="https://facebook.com" target="_blank">
