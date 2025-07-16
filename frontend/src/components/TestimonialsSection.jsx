@@ -31,7 +31,7 @@ export default function TestimonialsSection() {
   const slideRight = () => instanceRef.current?.next()
 
   return (
-    <section className="w-full bg-black py-16 px-4 relative">
+    <section className="w-full bg-black py-16 px-4 relative mt-22">
       <div className="text-center mb-10">
         <h2 className="text-3xl sm:text-3xl font-bold text-white">
           DEPOIMENTOS <span className="text-purple-500">REAIS</span>

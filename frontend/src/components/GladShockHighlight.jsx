@@ -2,7 +2,7 @@
 
 import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
-import { Play, ChevronLeft, ChevronRight, Dumbbell } from 'lucide-react'
+import { Play, ChevronLeft, ChevronRight, Dumbbell, X } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useRef } from 'react'
@@ -11,6 +11,7 @@ export default function GladShockHighlight() {
   const sliderRef = useRef(null)
   const [instanceRef, setInstanceRef] = useState(null)
   const [showVideo, setShowVideo] = useState(false)
+  const [modalImage, setModalImage] = useState(null)
 
   // Carousel configuration with responsive breakpoints
   const [ref] = useKeenSlider(
@@ -33,7 +34,7 @@ export default function GladShockHighlight() {
   ]
 
   return (
-    <section className="w-full bg-black py-16 px-4">
+    <section className="w-full bg-black py-16 px-4 mt-22">
       {/* Section title */}
       <div className="text-center mb-12">
         <h2 className="text-4xl font-extrabold text-white">
@@ -78,7 +79,7 @@ export default function GladShockHighlight() {
           )}
         </div>
 
-        {/* Text and bullet list with icons */}
+        {/* Description and list */}
         <div className="text-white max-w-xl space-y-4">
           <h3 className="text-2xl font-bold">Desperte sua melhor versão</h3>
           <p className="text-zinc-400 leading-relaxed">
@@ -106,12 +107,15 @@ export default function GladShockHighlight() {
         </div>
       </div>
 
-      {/* Image carousel - desktop shows all, mobile uses arrows */}
+      {/* Carousel */}
       <div className="relative mt-12 max-w-5xl mx-auto">
         <div ref={ref} className="keen-slider">
           {images.map((src, idx) => (
             <div className="keen-slider__slide" key={idx}>
-              <div className="w-full h-64 sm:h-72 md:h-80 rounded-xl overflow-hidden shadow-lg">
+              <div
+                className="w-full h-64 sm:h-72 md:h-80 rounded-xl overflow-hidden shadow-lg cursor-pointer"
+                onClick={() => setModalImage(src)}
+              >
                 <Image
                   src={src}
                   alt={`GladShock ${idx + 1}`}
@@ -124,7 +128,7 @@ export default function GladShockHighlight() {
           ))}
         </div>
 
-        {/* Navigation arrows - only visible on mobile */}
+        {/* Mobile navigation arrows */}
         <button
           onClick={() => instanceRef?.prev()}
           className="absolute left-0 top-1/2 -translate-y-1/2 bg-black/80 hover:bg-purple-600 p-2 rounded-full transition z-10 md:hidden"
@@ -138,6 +142,27 @@ export default function GladShockHighlight() {
           <ChevronRight size={24} className="text-white" />
         </button>
       </div>
+
+      {/* Image Modal */}
+      {modalImage && (
+        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+          <div className="relative bg-zinc-900 rounded-lg p-4 shadow-lg max-w-md w-full">
+            <button
+              onClick={() => setModalImage(null)}
+              className="absolute top-2 right-2 text-white hover:text-purple-500"
+            >
+              <X size={24} />
+            </button>
+            <Image
+              src={modalImage}
+              alt="Modal GladShock"
+              width={800}
+              height={400}
+              className="w-full h-auto object-contain rounded"
+            />
+          </div>
+        </div>
+      )}
     </section>
   )
 }
