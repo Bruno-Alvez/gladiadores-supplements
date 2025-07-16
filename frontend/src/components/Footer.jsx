@@ -25,8 +25,8 @@ export default function Footer() {
           </div>
           <p className="text-sm text-zinc-200 text-center md:text-right">
             Gladiadores Suplementos Ltda<br />
-            Av. dos Campeões, 1234 – Centro<br />
-            São Paulo – SP – CEP 01234-567
+            Av. Walkir Vergani, 300 – Praia de Boissucanga<br />
+            São Sebastião – SP – CEP 01234-567
           </p>
           {/* Vertical line fixed to the right side */}
           <div className="hidden md:block absolute right-0 top-0 bottom-0 w-px bg-white/20" />
