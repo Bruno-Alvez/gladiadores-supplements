@@ -34,7 +34,7 @@ export default function Faq() {
   }
 
   return (
-    <section className="w-full bg-black py-16 px-4 text-white mt-22">
+    <section id='faq' className="w-full bg-black py-16 px-4 text-white mt-22">
       {/* Título */}
       <div className="text-center mb-10">
         <h2 className="text-3xl font-extrabold tracking-tight">

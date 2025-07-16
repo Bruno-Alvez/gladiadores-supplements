@@ -34,7 +34,7 @@ export default function Categories() {
   const slideRight = () => instanceRef.current?.next()
 
   return (
-    <section className="w-full bg-black py-16 px-4 relative overflow-hidden mt-22">
+    <section id='categories' className="w-full bg-black py-16 px-4 relative overflow-hidden mt-22">
       {/* Tittle */}
       <div className="text-center mb-12 pb-6">
         <h2 className="text-3xl font-extrabold text-white tracking-tight">

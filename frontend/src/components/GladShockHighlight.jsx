@@ -34,7 +34,7 @@ export default function GladShockHighlight() {
   ]
 
   return (
-    <section className="w-full bg-black py-16 px-4 mt-22">
+    <section id='gladshock' className="w-full bg-black py-16 px-4 mt-22">
       {/* Section title */}
       <div className="text-center mb-12">
         <h2 className="text-4xl font-extrabold text-white">
