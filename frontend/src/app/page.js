@@ -5,6 +5,7 @@ import Faq from '@/components/Faq'
 import GoalSearchSection from '@/components/GoalSearchSection'
 import Hero from '@/components/Hero'
 import HeroDivider from '@/components/HeroDivider'
+import Newsletter from '@/components/Newsletter'
 import SupplementsSection from '@/components/SupplementsSection'
 import TestimonialsSection from '@/components/TestimonialsSection'
 
@@ -20,6 +21,7 @@ export default function Home() {
       <BestSellersSection />
       <GoalSearchSection />
       <Faq />
+      <Newsletter />
     </main>
   )
 }
