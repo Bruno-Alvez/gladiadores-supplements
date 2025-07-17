@@ -35,10 +35,6 @@ export default function Hero() {
       mobile: '/images/hero/slide1-mobile.jpeg',
     },
     {
-      desktop: '/images/hero/slide2-desktop.jpeg',
-      mobile: '/images/hero/slide2-mobile.jpeg',
-    },
-    {
       desktop: '/images/hero/slide3-desktop.jpeg',
       mobile: '/images/hero/slide3-mobile.jpeg',
     },

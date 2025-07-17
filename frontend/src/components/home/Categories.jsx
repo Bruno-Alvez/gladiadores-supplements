@@ -34,13 +34,15 @@ export default function Categories() {
   const slideRight = () => instanceRef.current?.next()
 
   return (
-    <section id='categories' className="w-full bg-black py-16 px-4 relative overflow-hidden mt-22">
-      {/* Tittle */}
+    <section id="categories" className="w-full bg-black py-16 px-4 relative overflow-hidden mt-14">
+      {/* Title */}
       <div className="text-center mb-12 pb-6">
         <h2 className="text-3xl font-extrabold text-white tracking-tight">
           BUSQUE POR <span className="text-purple-500">CATEGORIA</span>
         </h2>
-        <p className="text-zinc-400 text-sm mt-2">Explore as melhores categorias para sua performance</p>
+        <p className="text-zinc-400 text-sm mt-2">
+          Explore as melhores categorias para sua performance
+        </p>
       </div>
 
       {/* Slider */}
@@ -66,7 +68,7 @@ export default function Categories() {
           ))}
         </div>
 
-        {/* Navigation arrows */}
+        {/* Navegação */}
         <button
           onClick={slideLeft}
           className="absolute left-0 top-1/2 -translate-y-1/2 bg-black p-2 rounded-full shadow-md hover:bg-purple-600 transition z-10"

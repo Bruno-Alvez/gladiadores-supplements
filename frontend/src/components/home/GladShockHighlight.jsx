@@ -5,7 +5,7 @@ import 'keen-slider/keen-slider.min.css'
 import { Play, ChevronLeft, ChevronRight, Dumbbell, X } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 export default function GladShockHighlight() {
   const sliderRef = useRef(null)
@@ -13,7 +13,10 @@ export default function GladShockHighlight() {
   const [showVideo, setShowVideo] = useState(false)
   const [modalImage, setModalImage] = useState(null)
 
-  // Carousel configuration with responsive breakpoints
+  useEffect(() => {
+    setShowVideo(true)
+  }, [])
+
   const [ref] = useKeenSlider(
     {
       loop: true,
@@ -34,8 +37,7 @@ export default function GladShockHighlight() {
   ]
 
   return (
-    <section id='gladshock' className="w-full bg-black py-16 px-4 mt-22">
-      {/* Section title */}
+    <section id='gladshock' className="w-full bg-black py-16 px-4 mt-14">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-extrabold text-white">
           CONHEÇA O <span className="text-purple-500">GLADSHOCK</span>
@@ -45,9 +47,7 @@ export default function GladShockHighlight() {
         </p>
       </div>
 
-      {/* Video and description block */}
       <div className="flex flex-col lg:flex-row items-center justify-center gap-10 max-w-7xl mx-auto">
-        {/* Video preview */}
         <div className="relative w-full max-w-md h-[300px] lg:h-[360px] rounded-xl overflow-hidden shadow-lg bg-black group cursor-pointer">
           {!showVideo ? (
             <>
@@ -79,7 +79,6 @@ export default function GladShockHighlight() {
           )}
         </div>
 
-        {/* Description and list */}
         <div className="text-white max-w-xl space-y-4">
           <h3 className="text-2xl font-bold">Desperte sua melhor versão</h3>
           <p className="text-zinc-400 leading-relaxed">
@@ -107,7 +106,6 @@ export default function GladShockHighlight() {
         </div>
       </div>
 
-      {/* Carousel */}
       <div className="relative mt-12 max-w-5xl mx-auto">
         <div ref={ref} className="keen-slider">
           {images.map((src, idx) => (
@@ -128,7 +126,6 @@ export default function GladShockHighlight() {
           ))}
         </div>
 
-        {/* Mobile navigation arrows */}
         <button
           onClick={() => instanceRef?.prev()}
           className="absolute left-0 top-1/2 -translate-y-1/2 bg-black/80 hover:bg-purple-600 p-2 rounded-full transition z-10 md:hidden"
@@ -143,7 +140,6 @@ export default function GladShockHighlight() {
         </button>
       </div>
 
-      {/* Image Modal */}
       {modalImage && (
         <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
           <div className="relative bg-zinc-900 rounded-lg p-4 shadow-lg max-w-md w-full">

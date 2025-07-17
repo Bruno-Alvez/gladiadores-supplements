@@ -1,5 +1,5 @@
-import './globals.css'
-import Header from '@/components/Header'
+import '../../src/styles/globals.css'
+import Header from '@/components/common/Header'
 
 export const metadata = {
   title: 'Gladiadores Suplementos',

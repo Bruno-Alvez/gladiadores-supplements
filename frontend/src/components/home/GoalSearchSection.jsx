@@ -8,27 +8,27 @@ const goals = [
   {
     label: 'Hipertrofia',
     image: '/images/goals/hipertrofia.jpg',
-    href: '/objetivo/hipertrofia',
+    href: '/goal/hipertrofia',
   },
   {
     label: 'Ganhar Forca',
     image: '/images/goals/ganho-forca.jpg',
-    href: '/objetivo/ganhar-forca',
+    href: '/goal/ganhar-forca',
   },
   {
     label: 'Perder Gordura',
     image: '/images/goals/perder-gordura.jpg',
-    href: '/objetivo/perder-gordura',
+    href: '/goal/perder-gordura',
   },
   {
     label: 'Desempenho',
     image: '/images/goals/desempenho.jpg',
-    href: '/objetivo/desempenho',
+    href: '/goal/desempenho',
   },
   {
     label: 'Energia',
     image: '/images/goals/energia.jpg',
-    href: '/objetivo/energia',
+    href: '/goal/energia',
   },
 ]
 
@@ -45,7 +45,7 @@ export default function GoalSearchSection() {
   })
 
   return (
-    <section id='goals' className="w-full bg-black py-16 px-6 mt-22">
+    <section id='goals' className="bg-purple-500/15 text-white py-16 px-6 text-center mt-12">
       <div className="text-center mb-12">
         <h2 className="text-3xl font-extrabold text-white">
           BUSQUE POR <span className="text-purple-500">OBJETIVO</span>
