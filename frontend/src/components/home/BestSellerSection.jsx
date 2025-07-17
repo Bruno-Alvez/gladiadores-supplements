@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { Dumbbell, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
-import products from '@/data/categories/products'
+import products from '@/data/categories/proteinas'
 import ProductModal from '@/components/products/ProductModal'
 
 export default function BestSellersSection() {
