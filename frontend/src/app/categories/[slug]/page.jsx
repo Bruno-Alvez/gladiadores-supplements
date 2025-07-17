@@ -11,7 +11,7 @@ import Image from 'next/image'
 import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
 
-import allProducts from '@/data/categories/products'
+import allProducts from '@/data/categories/proteinas'
 
 export default function CategoryPage() {
   const params = useParams()

@@ -8,27 +8,27 @@ const goals = [
   {
     label: 'Hipertrofia',
     image: '/images/goals/hipertrofia.jpg',
-    href: '/goal/hipertrofia',
+    href: '/objectives/hipertrofia',
   },
   {
     label: 'Ganhar Forca',
     image: '/images/goals/ganho-forca.jpg',
-    href: '/goal/ganhar-forca',
+    href: '/objectives/ganhar-forca',
   },
   {
     label: 'Perder Gordura',
     image: '/images/goals/perder-gordura.jpg',
-    href: '/goal/perder-gordura',
+    href: '/objectives/perder-gordura',
   },
   {
     label: 'Desempenho',
     image: '/images/goals/desempenho.jpg',
-    href: '/goal/desempenho',
+    href: '/objectives/desempenho',
   },
   {
     label: 'Energia',
     image: '/images/goals/energia.jpg',
-    href: '/goal/energia',
+    href: '/objectives/energia',
   },
 ]
 
