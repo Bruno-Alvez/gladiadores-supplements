@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 export default function AboutStoreSection() {
   return (
-    <section id='about' className="w-full bg-black px-4 py-20 mt-22">
+    <section id='about' className="bg-purple-500/15 text-white py-16 px-6 text-center mt-12">
       {/* Title */}
       <div className="text-center mb-12">
         <h2 className="text-3xl sm:text-3xl font-extrabold text-white">

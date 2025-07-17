@@ -78,6 +78,7 @@ export default function Header() {
         <nav className="flex flex-col gap-4 bg-black bg-opacity-90 p-6 text-white">
           <Link href="#gladshock" className={linkClass('gladshock')}>Glad Shock</Link>
           <Link href="#about" className={linkClass('about')}>Sobre Nós</Link>
+          <Link href="#goals" className={linkClass('goals')}>Iniciantes</Link>
           <Link href="#testimonials" className={linkClass('testimonials')}>Depoimentos</Link>
           <Link href="#faq" className={linkClass('faq')}>Principais Dúvidas</Link>
           <Link href="#contact" className={linkClass('contact')}>Fale Conosco</Link>

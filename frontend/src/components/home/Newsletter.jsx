@@ -24,7 +24,7 @@ export default function Newsletter() {
   }
 
   return (
-    <section className="w-full bg-purple-700 text-white py-10 px-4 mt-22">
+    <section className="w-full bg-purple-700 text-white py-10 px-4 mt-14">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
         {/* Texto à esquerda */}
         <div className="text-center sm:text-left">
