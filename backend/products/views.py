@@ -1,22 +1,34 @@
 from rest_framework import viewsets
 from .models import Category, Brand, Goal, Product
-from .serializers import CategorySerializer, BrandSerializer, GoalSerializer, ProductSerializer
+from .serializers import (
+    CategorySerializer,
+    BrandSerializer,
+    GoalSerializer,
+    ProductSerializer,
+    ProductDetailSerializer
+)
 
-class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
+
+class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 
-class BrandViewSet(viewsets.ReadOnlyModelViewSet):
+class BrandViewSet(viewsets.ModelViewSet):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
 
 
-class GoalViewSet(viewsets.ReadOnlyModelViewSet):
+class GoalViewSet(viewsets.ModelViewSet):
     queryset = Goal.objects.all()
     serializer_class = GoalSerializer
 
 
-class ProductViewSet(viewsets.ReadOnlyModelViewSet):
+class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.select_related('category', 'brand').prefetch_related('goals')
-    serializer_class = ProductSerializer
+
+    # Choose the appropriate serializer depending on the request method
+    def get_serializer_class(self):
+        if self.action in ['list', 'retrieve']:
+            return ProductDetailSerializer  # Read: use nested serializers
+        return ProductSerializer  # Write: use simple ID-based serializer
