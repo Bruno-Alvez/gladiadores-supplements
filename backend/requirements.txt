@@ -7,3 +7,5 @@ python-dotenv
 python-decouple
 Pillow
 gunicorn
+cloudinary
+django-cloudinary-storage

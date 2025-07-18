@@ -2,6 +2,8 @@ from django.db import models
 from .category import Category
 from .brand import Brand
 from .goal import Goal
+from cloudinary.models import CloudinaryField
+
 
 
 class Product(models.Model):
@@ -9,7 +11,7 @@ class Product(models.Model):
     slug = models.SlugField(unique=True)
     description = models.TextField()
     benefits = models.JSONField()
-    image_urls = models.JSONField()
+    image_urls = CloudinaryField('image')
     whatsapp_message = models.TextField()
     success = models.BooleanField(default=False)
 
