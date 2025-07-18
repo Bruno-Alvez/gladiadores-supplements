@@ -1,163 +1,161 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-export default function ProductForm() {
+// Optional: use environment variable in prod
+const API_BASE_URL = "https://gladiadores-supplements.onrender.com/api";
+
+const ProductForm = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    benefits: '',
-    price: '',
-    image: null,
-    category: '',
-    brand: '',
+    name: "",
+    slug: "",
+    description: "",
+    category: "",
+    brand: "",
     goals: [],
+    benefits: [],
+    image: null,
     success: false,
   });
 
-  const handleChange = (e) => {
-    const { name, value, type, checked, files } = e.target;
+  const [categories, setCategories] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [goals, setGoals] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [feedback, setFeedback] = useState(null);
 
-    if (type === 'checkbox') {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: checked,
-      }));
-    } else if (type === 'file') {
-      setFormData((prev) => ({
-        ...prev,
-        image: files[0],
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
+  // --- Fetch dropdown data ---
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [catRes, brandRes, goalRes] = await Promise.all([
+          axios.get(`${API_BASE_URL}/categories/`),
+          axios.get(`${API_BASE_URL}/brands/`),
+          axios.get(`${API_BASE_URL}/goals/`),
+        ]);
+        setCategories(catRes.data);
+        setBrands(brandRes.data);
+        setGoals(goalRes.data);
+      } catch (error) {
+        console.error("Error loading form options:", error);
+        setFeedback("Erro ao carregar opções do formulário.");
+      }
+    };
+    fetchData();
+  }, []);
+
+  // --- Handle input ---
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  // --- Handle file ---
+  const handleFileChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      image: e.target.files[0],
+    }));
+  };
+
+  // --- Handle multi-goals ---
+  const handleGoalsChange = (e) => {
+    const selected = Array.from(e.target.selectedOptions, (opt) => opt.value);
+    setFormData((prev) => ({
+      ...prev,
+      goals: selected,
+    }));
+  };
+
+  // --- Submit form ---
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setFeedback(null);
+
+    const payload = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      if (key === "goals") {
+        value.forEach((goalId) => payload.append("goals", goalId));
+      } else if (key === "benefits") {
+        payload.append("benefits", JSON.stringify(value));
+      } else {
+        payload.append(key, value);
+      }
+    });
+
+    try {
+      await axios.post(`${API_BASE_URL}/products/`, payload, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      setFeedback("Produto criado com sucesso!");
+      setFormData({
+        name: "",
+        slug: "",
+        description: "",
+        category: "",
+        brand: "",
+        goals: [],
+        benefits: [],
+        image: null,
+        success: false,
+      });
+    } catch (error) {
+      console.error(error);
+      setFeedback("Erro ao criar o produto.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Submitted product:', formData);
-  };
-
   return (
-    <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-zinc-900 p-6 rounded-2xl shadow-xl">
-      <div className="flex flex-col">
-        <label className="mb-1 text-sm font-semibold">Nome</label>
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          className="bg-zinc-800 p-3 rounded-lg text-white border border-zinc-700 focus:outline-none focus:border-purple-500"
-          required
-        />
-      </div>
+    <form onSubmit={handleSubmit} className="space-y-4 p-4 max-w-xl mx-auto">
+      <h2 className="text-2xl font-bold text-center text-purple-700">Cadastro de Produto</h2>
 
-      <div className="flex flex-col">
-        <label className="mb-1 text-sm font-semibold">Descrição</label>
-        <textarea
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-          className="bg-zinc-800 p-3 rounded-lg text-white border border-zinc-700 focus:outline-none focus:border-purple-500"
-          rows={4}
-          required
-        />
-      </div>
+      <input type="text" name="name" placeholder="Nome" value={formData.name} onChange={handleChange} className="w-full p-2 border rounded" required />
+      <input type="text" name="slug" placeholder="Slug" value={formData.slug} onChange={handleChange} className="w-full p-2 border rounded" required />
+      <textarea name="description" placeholder="Descrição" value={formData.description} onChange={handleChange} className="w-full p-2 border rounded" required />
 
-      <div className="flex flex-col">
-        <label className="mb-1 text-sm font-semibold">Benefícios</label>
-        <textarea
-          name="benefits"
-          value={formData.benefits}
-          onChange={handleChange}
-          className="bg-zinc-800 p-3 rounded-lg text-white border border-zinc-700 focus:outline-none focus:border-purple-500"
-          rows={4}
-        />
-      </div>
+      <select name="category" value={formData.category} onChange={handleChange} className="w-full p-2 border rounded" required>
+        <option value="">Selecione a Categoria</option>
+        {categories.map((c) => (
+          <option key={c.id} value={c.id}>{c.name}</option>
+        ))}
+      </select>
 
-      <div className="flex flex-col">
-        <label className="mb-1 text-sm font-semibold">Preço (R$)</label>
-        <input
-          type="number"
-          name="price"
-          value={formData.price}
-          onChange={handleChange}
-          className="bg-zinc-800 p-3 rounded-lg text-white border border-zinc-700 focus:outline-none focus:border-purple-500"
-          required
-        />
-      </div>
+      <select name="brand" value={formData.brand} onChange={handleChange} className="w-full p-2 border rounded" required>
+        <option value="">Selecione a Marca</option>
+        {brands.map((b) => (
+          <option key={b.id} value={b.id}>{b.name}</option>
+        ))}
+      </select>
 
-      <div className="flex flex-col">
-        <label className="mb-1 text-sm font-semibold">Categoria</label>
-        <input
-          type="text"
-          name="category"
-          value={formData.category}
-          onChange={handleChange}
-          className="bg-zinc-800 p-3 rounded-lg text-white border border-zinc-700 focus:outline-none focus:border-purple-500"
-          required
-        />
-      </div>
+      <select name="goals" multiple value={formData.goals} onChange={handleGoalsChange} className="w-full p-2 border rounded">
+        {goals.map((g) => (
+          <option key={g.id} value={g.id}>{g.name}</option>
+        ))}
+      </select>
 
-      <div className="flex flex-col">
-        <label className="mb-1 text-sm font-semibold">Marca</label>
-        <input
-          type="text"
-          name="brand"
-          value={formData.brand}
-          onChange={handleChange}
-          className="bg-zinc-800 p-3 rounded-lg text-white border border-zinc-700 focus:outline-none focus:border-purple-500"
-        />
-      </div>
+      <input type="file" name="image" onChange={handleFileChange} className="w-full" required />
 
-      <div className="flex flex-col">
-        <label className="mb-1 text-sm font-semibold">Objetivos (separados por vírgula)</label>
-        <input
-          type="text"
-          name="goals"
-          value={formData.goals}
-          onChange={(e) =>
-            setFormData((prev) => ({
-              ...prev,
-              goals: e.target.value.split(',').map((g) => g.trim()),
-            }))
-          }
-          className="bg-zinc-800 p-3 rounded-lg text-white border border-zinc-700 focus:outline-none focus:border-purple-500"
-        />
-      </div>
+      <label className="flex items-center space-x-2">
+        <input type="checkbox" name="success" checked={formData.success} onChange={(e) => setFormData({ ...formData, success: e.target.checked })} />
+        <span>Produto é sucesso de vendas</span>
+      </label>
 
-      <div className="flex flex-col">
-        <label className="mb-1 text-sm font-semibold">Imagem</label>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleChange}
-          className="text-white"
-        />
-      </div>
+      <button type="submit" className="bg-purple-700 text-white py-2 px-4 rounded hover:bg-purple-800 transition" disabled={loading}>
+        {loading ? "Salvando..." : "Salvar Produto"}
+      </button>
 
-      <div className="flex items-center space-x-3">
-        <input
-          type="checkbox"
-          name="success"
-          checked={formData.success}
-          onChange={handleChange}
-          className="w-5 h-5"
-        />
-        <label className="text-sm font-semibold">Produto de sucesso?</label>
-      </div>
-
-      <div className="md:col-span-2 flex justify-end">
-        <button
-          type="submit"
-          className="bg-purple-600 hover:bg-purple-700 transition-colors px-6 py-3 rounded-lg text-white font-semibold"
-        >
-          Cadastrar Produto
-        </button>
-      </div>
+      {feedback && <p className="text-center text-sm text-red-500 mt-2">{feedback}</p>}
     </form>
   );
-}
+};
+
+export default ProductForm;
