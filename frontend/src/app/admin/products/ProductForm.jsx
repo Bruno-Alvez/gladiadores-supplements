@@ -14,7 +14,7 @@ export default function ProductForm() {
     category: '',
     brand: '',
     goals: [],
-    image: null,
+    images: [],
   });
 
   const [categories, setCategories] = useState(null);
@@ -67,8 +67,9 @@ export default function ProductForm() {
       });
     } else if (type === 'checkbox') {
       setFormData((prev) => ({ ...prev, [name]: checked }));
-    } else if (type === 'file') {
-      setFormData((prev) => ({ ...prev, image: files[0] }));
+    } else if (type === 'file' && name === 'images') {
+      const selectedFiles = Array.from(files).slice(0, 10);
+      setFormData((prev) => ({ ...prev, images: selectedFiles }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
@@ -83,7 +84,6 @@ export default function ProductForm() {
     }
 
     const data = new FormData();
-
     data.append('name', formData.name);
     data.append('slug', formData.slug);
     data.append('description', formData.description);
@@ -96,7 +96,12 @@ export default function ProductForm() {
     data.append('category', formData.category);
     data.append('brand', formData.brand);
     formData.goals.forEach((goalId) => data.append('goals', goalId));
-    if (formData.image) data.append('image', formData.image);
+
+    if (formData.images && formData.images.length > 0) {
+      formData.images.forEach((img, index) => {
+        data.append(`image_${index + 1}`, img);
+      });
+    }
 
     try {
       const res = await fetch(`${API_URL}/products/`, {
@@ -147,7 +152,6 @@ export default function ProductForm() {
         ))}
       </select>
 
-      {/* Substituição do select multiple por checkboxes */}
       <div className="md:col-span-2">
         <p className="text-white mb-2 font-semibold">Objetivos</p>
         <div className="grid grid-cols-2 gap-2">
@@ -167,7 +171,22 @@ export default function ProductForm() {
         </div>
       </div>
 
-      <input type="file" name="image" accept="image/*" onChange={handleChange} className="input" />
+      <div className="md:col-span-2">
+        <label className="block text-white font-semibold mb-2">Imagens do Produto (até 10)</label>
+        <input
+          type="file"
+          name="images"
+          accept="image/*"
+          multiple
+          onChange={handleChange}
+          className="block w-full text-sm text-white file:mr-4 file:py-2 file:px-4
+            file:rounded-full file:border-0
+            file:text-sm file:font-semibold
+            file:bg-purple-600 file:text-white
+            hover:file:bg-purple-700
+            cursor-pointer bg-zinc-800 rounded-lg p-2"
+        />
+      </div>
 
       <label className="flex items-center space-x-2 md:col-span-2">
         <input type="checkbox" name="success" checked={formData.success} onChange={handleChange} />
