@@ -142,5 +142,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ALLOWED_HOSTS = ['*']
 
-#test
+# test for cors
 CORS_ALLOWED_ORIGINS = True
