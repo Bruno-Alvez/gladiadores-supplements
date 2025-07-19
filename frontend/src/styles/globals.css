@@ -30,3 +30,7 @@ section + section {
   border-top: none !important;
 }
 
+.input {
+  @apply bg-zinc-800 p-3 rounded-lg text-white border border-zinc-700 focus:outline-none focus:border-purple-500;
+}
+

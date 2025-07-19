@@ -7,5 +7,7 @@ python-dotenv
 python-decouple
 Pillow
 gunicorn
+django-cors-headers
+
 
 
