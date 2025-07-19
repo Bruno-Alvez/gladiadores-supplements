@@ -8,6 +8,8 @@ python-decouple
 Pillow
 gunicorn
 django-cors-headers
+cloudinary
+django-cloudinary-storage
 
 
 
