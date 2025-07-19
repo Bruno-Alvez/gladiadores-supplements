@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { Dumbbell } from 'lucide-react'
 import { getBestSellers } from '../../../lib/api/products'
 import ProductModal from '../products/ProductModal'
 
@@ -33,40 +34,54 @@ export default function BestSellersSection() {
         <p className="text-red-500 text-center mb-6">{error}</p>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
-        {products.map((product) => (
-          <div
-            key={product.id}
-            className="bg-purple-900 rounded-2xl p-4 w-full max-w-xs hover:scale-105 transition-transform duration-300 shadow-lg cursor-pointer"
-            onClick={() => setSelectedProduct(product)}
-          >
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-48 object-cover rounded-xl mb-4"
-            />
-            <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
-            <ul className="text-sm space-y-1 mb-4">
-              {Array.isArray(product.benefits) && product.benefits.length > 0 ? (
-                product.benefits.map((benefit, i) => (
-                  <li key={i} className="flex items-center gap-2">
-                    <span>🏋️‍♂️</span> {benefit}
-                  </li>
-                ))
-              ) : (
-                <li className="text-zinc-300">Sem benefícios listados</li>
-              )}
-            </ul>
-            <a
-              href={`https://wa.me/5511999999999?text=${encodeURIComponent(product.whatsapp_message || product.name)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg text-center font-medium transition"
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center">
+        {products.map((product) => {
+          const image = product.image_main || product.image_urls?.[0] || '/placeholder.jpg'
+
+          const benefitsArray = typeof product.benefits === 'string'
+            ? product.benefits.split(',').map(b => b.trim())
+            : Array.isArray(product.benefits)
+              ? product.benefits
+              : []
+
+          return (
+            <div
+              key={product.id}
+              onClick={() => setSelectedProduct(product)}
+              className="bg-purple-950/40 backdrop-blur rounded-2xl p-4 flex flex-col items-center text-center shadow-md hover:shadow-purple-500/20 transition cursor-pointer w-full max-w-xs"
             >
-              Comprar no WhatsApp
-            </a>
-          </div>
-        ))}
+              <img
+                src={image}
+                alt={product.name}
+                className="rounded-lg object-contain w-full h-56 sm:h-64 mb-4"
+              />
+              <h3 className="text-white text-lg font-bold mb-2">{product.name}</h3>
+
+              <ul className="text-sm text-zinc-300 mb-4 space-y-1">
+                {benefitsArray.length > 0 ? (
+                  benefitsArray.map((benefit, i) => (
+                    <li key={i} className="flex items-center justify-center gap-2">
+                      <Dumbbell size={16} className="text-purple-500" />
+                      {benefit}
+                    </li>
+                  ))
+                ) : (
+                  <li className="text-zinc-400">Sem benefícios listados</li>
+                )}
+              </ul>
+
+              <a
+                href={`https://wa.me/5511999999999?text=${encodeURIComponent(product.whatsapp_message || product.name)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-auto bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full text-sm font-semibold transition w-full"
+                onClick={(e) => e.stopPropagation()}
+              >
+                Comprar via WhatsApp
+              </a>
+            </div>
+          )
+        })}
       </div>
 
       {selectedProduct && (

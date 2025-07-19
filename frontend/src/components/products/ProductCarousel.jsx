@@ -4,7 +4,6 @@ import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import ProductCard from './ProductCard'
-import { useRef } from 'react'
 
 export default function ProductCarousel({ brand, products, onProductClick }) {
   const [sliderRef, instanceRef] = useKeenSlider({
@@ -46,7 +45,6 @@ export default function ProductCarousel({ brand, products, onProductClick }) {
         ))}
       </div>
 
-      {/* Navigation arrows (desktop only) */}
       <div className="hidden md:flex justify-between items-center mt-4 px-2">
         <button
           onClick={slideLeft}
