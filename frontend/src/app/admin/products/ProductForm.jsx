@@ -17,9 +17,9 @@ export default function ProductForm() {
     image: null,
   });
 
-  const [categories, setCategories] = useState([]);
-  const [brands, setBrands] = useState([]);
-  const [goals, setGoals] = useState([]);
+  const [categories, setCategories] = useState(null);
+  const [brands, setBrands] = useState(null);
+  const [goals, setGoals] = useState(null);
   const [error, setError] = useState('');
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://gladiadores-supplements.onrender.com/api';
@@ -44,10 +44,6 @@ export default function ProductForm() {
         setCategories(cats);
         setBrands(brandsData);
         setGoals(goalsData);
-
-        console.log('✔ Categorias:', cats);
-        console.log('✔ Marcas:', brandsData);
-        console.log('✔ Objetivos:', goalsData);
       } catch (err) {
         console.error('❌ Erro ao buscar dados da API:', err);
         setError('Erro ao carregar opções do formulário.');
@@ -79,7 +75,9 @@ export default function ProductForm() {
     data.append('whatsapp_message', formData.whatsapp_message);
     data.append('price', formData.price);
     data.append('success', formData.success);
-    data.append('benefits', formData.benefits);
+    data.append('benefits', formData.benefits
+      ? JSON.stringify(formData.benefits)
+      : JSON.stringify([]));
     data.append('category', formData.category);
     data.append('brand', formData.brand);
     formData.goals.forEach((goalId) => data.append('goals', goalId));
@@ -104,6 +102,10 @@ export default function ProductForm() {
       setError('Erro ao conectar com o servidor.');
     }
   };
+
+  if (!categories || !brands || !goals) {
+    return <p className="text-center text-white">🔄 Carregando formulário...</p>;
+  }
 
   return (
     <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-zinc-900 p-6 rounded-2xl shadow-xl">

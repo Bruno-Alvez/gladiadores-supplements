@@ -8,8 +8,8 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
     description = models.TextField()
-    benefits = models.JSONField()
-    image_urls = models.JSONField()
+    benefits = models.JSONField(blank=True, null=True)
+    image = models.ImageField(upload_to='products/')
     whatsapp_message = models.TextField()
     success = models.BooleanField(default=False)
 
