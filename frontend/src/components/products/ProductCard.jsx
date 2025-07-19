@@ -4,6 +4,7 @@ import { Dumbbell } from 'lucide-react'
 import Image from 'next/image'
 
 export default function ProductCard({ product, onClick }) {
+  // Fallback para a primeira imagem válida
   const firstImage =
     product.image_main ||
     product.image_1 ||
@@ -17,35 +18,44 @@ export default function ProductCard({ product, onClick }) {
     product.image_9 ||
     '/placeholder.jpg'
 
+  // Garante que os benefícios estejam em array
+  const benefitsArray = typeof product.benefits === 'string'
+    ? product.benefits.split(',').map(b => b.trim())
+    : Array.isArray(product.benefits)
+      ? product.benefits
+      : []
+
   return (
     <div
       onClick={() => onClick(product)}
-      className="bg-purple-950 p-4 rounded-2xl shadow-md cursor-pointer transition-transform hover:scale-105 w-64 sm:w-72"
+      className="bg-purple-950/40 backdrop-blur rounded-2xl p-4 flex flex-col items-center text-center shadow-md hover:shadow-purple-500/20 transition cursor-pointer w-full"
     >
-      <div className="relative w-full h-36 mb-4 overflow-hidden rounded-xl">
+      <div className="relative w-full h-56 sm:h-64 mb-4">
         <Image
           src={firstImage}
           alt={product.name}
           fill
-          className="object-cover"
+          className="rounded-lg object-contain"
         />
       </div>
 
-      <h3 className="text-lg font-bold text-white mb-2 text-center">
-        {product.name}
-      </h3>
+      <h3 className="text-white text-lg font-bold mb-2">{product.name}</h3>
 
-      <ul className="text-sm text-zinc-300 space-y-1 mb-4">
-        {product.benefits?.map((benefit, index) => (
-          <li key={index} className="flex items-center gap-2">
-            <Dumbbell size={16} className="text-purple-400" />
-            {benefit}
-          </li>
-        ))}
+      <ul className="text-sm text-zinc-300 mb-4 space-y-1">
+        {benefitsArray.length > 0 ? (
+          benefitsArray.map((benefit, index) => (
+            <li key={index} className="flex items-center justify-center gap-2">
+              <Dumbbell size={16} className="text-purple-500" />
+              {benefit}
+            </li>
+          ))
+        ) : (
+          <li className="text-zinc-400">Sem benefícios listados</li>
+        )}
       </ul>
 
       <button
-        className="bg-purple-600 hover:bg-purple-700 text-white text-sm font-semibold py-2 px-4 rounded-full w-full"
+        className="mt-auto bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full text-sm font-semibold transition"
         onClick={(e) => {
           e.stopPropagation()
           window.open(

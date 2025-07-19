@@ -1,13 +1,13 @@
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
 export async function apiFetch(endpoint, options = {}) {
-  const res = await fetch(`${API_BASE_URL}/api/${endpoint}`, {
+  const res = await fetch(`${API_BASE_URL}/${endpoint}`, {
     headers: {
       'Content-Type': 'application/json',
       ...options.headers,
     },
     ...options,
-    next: { revalidate: 60 }, // cache leve
+    next: { revalidate: 60 },
   })
 
   if (!res.ok) {
