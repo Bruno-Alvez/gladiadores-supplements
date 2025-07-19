@@ -9,7 +9,7 @@ class Product(models.Model):
     slug = models.SlugField(unique=True)
     description = models.TextField()
     benefits = models.JSONField(blank=True, null=True)
-    image = models.ImageField(upload_to='products/')
+    image = models.ImageField(upload_to='products/', null=True, blank=True)
     whatsapp_message = models.TextField()
     success = models.BooleanField(default=False)
 
