@@ -56,7 +56,16 @@ export default function ProductForm() {
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
 
-    if (type === 'checkbox') {
+    if (type === 'checkbox' && name !== 'success') {
+      const goalId = value;
+      setFormData((prev) => {
+        const isSelected = prev.goals.includes(goalId);
+        const updatedGoals = isSelected
+          ? prev.goals.filter((id) => id !== goalId)
+          : [...prev.goals, goalId];
+        return { ...prev, goals: updatedGoals };
+      });
+    } else if (type === 'checkbox') {
       setFormData((prev) => ({ ...prev, [name]: checked }));
     } else if (type === 'file') {
       setFormData((prev) => ({ ...prev, image: files[0] }));
@@ -67,6 +76,12 @@ export default function ProductForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (formData.goals.length === 0) {
+      setError('Selecione pelo menos um objetivo para o produto.');
+      return;
+    }
+
     const data = new FormData();
 
     data.append('name', formData.name);
@@ -132,14 +147,25 @@ export default function ProductForm() {
         ))}
       </select>
 
-      <select name="goals" multiple value={formData.goals} onChange={(e) => {
-        const selected = Array.from(e.target.selectedOptions, (opt) => opt.value);
-        setFormData((prev) => ({ ...prev, goals: selected }));
-      }} className="input md:col-span-2 h-32">
-        {goals.map((g) => (
-          <option key={g.id} value={g.id}>{g.name}</option>
-        ))}
-      </select>
+      {/* Substituição do select multiple por checkboxes */}
+      <div className="md:col-span-2">
+        <p className="text-white mb-2 font-semibold">Objetivos</p>
+        <div className="grid grid-cols-2 gap-2">
+          {goals.map((g) => (
+            <label key={g.id} className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                name="goals"
+                value={g.id}
+                checked={formData.goals.includes(String(g.id))}
+                onChange={handleChange}
+                className="accent-purple-600"
+              />
+              <span className="text-white text-sm">{g.name}</span>
+            </label>
+          ))}
+        </div>
+      </div>
 
       <input type="file" name="image" accept="image/*" onChange={handleChange} className="input" />
 
