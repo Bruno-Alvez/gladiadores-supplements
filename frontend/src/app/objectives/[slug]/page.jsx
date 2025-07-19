@@ -6,28 +6,42 @@ import Header from '@/components/common/Header'
 import Footer from '@/components/common/Footer'
 import ProductModal from '@/components/products/ProductModal'
 import Image from 'next/image'
-import allProducts from '@/data/categories/proteinas'
 import { Dumbbell, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
+import { getAllProducts } from '../../../../lib/api/products'
 
 export default function GoalPage() {
-  const { slug: goal } = useParams()
+  const { slug: goalSlug } = useParams()
   const [selectedProduct, setSelectedProduct] = useState(null)
+  const [productsByBrand, setProductsByBrand] = useState({})
 
-  if (!goal) return null
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const allProducts = await getAllProducts()
 
-  const allItems = Object.values(allProducts).flat()
+        const filtered = allProducts.filter(product =>
+          product.goals?.some(goal => goal.slug === goalSlug)
+        )
 
-  const filtered = allItems.filter((p) =>
-    p.goal?.map((g) => g.toLowerCase()).includes(goal)
-  )
+        const grouped = filtered.reduce((acc, product) => {
+          const brand = product.brand?.name || 'Outros'
+          acc[brand] = acc[brand] || []
+          acc[brand].push(product)
+          return acc
+        }, {})
 
-  const productsByBrand = filtered.reduce((acc, product) => {
-    acc[product.brand] = acc[product.brand] || []
-    acc[product.brand].push(product)
-    return acc
-  }, {})
+        setProductsByBrand(grouped)
+      } catch (error) {
+        console.error('Erro ao buscar produtos:', error)
+      }
+    }
+
+    fetchProducts()
+  }, [goalSlug])
+
+  if (!goalSlug) return null
 
   return (
     <>
@@ -36,9 +50,9 @@ export default function GoalPage() {
       <main className="pt-20 bg-black text-white">
         <section className="max-w-7xl mx-auto px-4 py-16">
           <h1 className="text-3xl sm:text-4xl font-bold text-center mb-10">
-            OBJETIVO: {' '}
+            OBJETIVO:{' '}
             <span className="text-purple-500 uppercase">
-              {goal.replaceAll('-', ' ')}
+              {goalSlug.replaceAll('-', ' ')}
             </span>
           </h1>
 
@@ -69,14 +83,13 @@ function Carousel({ items, onSelect }) {
         slides: { perView: 2, spacing: 16 },
       },
       '(min-width: 1024px)': {
-        slides: false, // Grid no desktop
+        slides: false,
       },
     },
   })
 
   return (
     <>
-      {/* Mobile: carrossel */}
       <div className="block lg:hidden relative">
         <div ref={sliderRef} className="keen-slider px-2">
           {items.map((product, idx) => (
@@ -100,7 +113,6 @@ function Carousel({ items, onSelect }) {
         </button>
       </div>
 
-      {/* Desktop: grid */}
       <div className="hidden lg:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {items.map((product, idx) => (
           <Card key={idx} product={product} onClick={() => onSelect(product)} />
@@ -111,13 +123,20 @@ function Carousel({ items, onSelect }) {
 }
 
 function Card({ product, onClick }) {
+  const image = product.image_main || product.image_urls?.[0] || '/placeholder.jpg'
+  const benefits = Array.isArray(product.benefits)
+    ? product.benefits
+    : typeof product.benefits === 'string'
+    ? product.benefits.split(',').map(b => b.trim())
+    : []
+
   return (
     <div
       onClick={onClick}
       className="bg-purple-950/40 backdrop-blur rounded-2xl p-4 flex flex-col items-center text-center shadow-md hover:shadow-purple-500/20 transition cursor-pointer"
     >
       <Image
-        src={product.imageUrls?.[0]}
+        src={image}
         alt={product.name}
         width={300}
         height={300}
@@ -125,7 +144,7 @@ function Card({ product, onClick }) {
       />
       <h3 className="text-white text-lg font-bold mb-2">{product.name}</h3>
       <ul className="text-sm text-zinc-300 mb-4 space-y-1">
-        {product.benefits?.map((benefit, i) => (
+        {benefits.map((benefit, i) => (
           <li key={i} className="flex items-center justify-center gap-2">
             <Dumbbell size={16} className="text-purple-500" />
             {benefit}
@@ -133,10 +152,10 @@ function Card({ product, onClick }) {
         ))}
       </ul>
       <a
-        href={`https://wa.me/5511999999999?text=${encodeURIComponent(product.whatsappMessage)}`}
+        href={`https://wa.me/5511999999999?text=${encodeURIComponent(product.whatsapp_message || product.name)}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-auto bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full text-sm font-semibold transition"
+        className="mt-auto bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full text-sm font-semibold transition w-full"
         onClick={(e) => e.stopPropagation()}
       >
         Comprar via WhatsApp
