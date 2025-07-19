@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Category, Brand, Goal, Product
 
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
@@ -24,26 +25,24 @@ class GoalAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'brand', 'success', 'get_categories', 'get_goals']
+    list_display = ['name', 'brand', 'success', 'category', 'get_goals']
     list_filter = ['brand', 'success', 'category', 'goals']
     search_fields = ['name', 'description']
-    filter_horizontal =[ 'goals' ]
-    readonly_fields = ['id']
+    filter_horizontal = ['goals']
+    readonly_fields = ['slug']
+    prepopulated_fields = {'slug': ('name',)}
+
     fieldsets = (
         (None, {
-            'fields': ('id', 'name', 'brand', 'description', 'success')
+            'fields': ('name', 'slug', 'description', 'category', 'brand', 'goals', 'success', 'benefits', 'whatsapp_message')
         }),
-        ('Relações', {
-            'fields': ('categories', 'goals')
-        }),
-        ('Imagens e Benefícios', {
-            'fields': ('imageUrls', 'benefits', 'whatsappMessage')
+        ('Imagens', {
+            'fields': (
+                'image_main', 'image_1', 'image_2', 'image_3', 'image_4', 'image_5',
+                'image_6', 'image_7', 'image_8', 'image_9'
+            )
         }),
     )
-
-    def get_categories(self, obj):
-        return ", ".join([c.name for c in obj.categories.all()])
-    get_categories.short_description = 'Categorias'
 
     def get_goals(self, obj):
         return ", ".join([g.name for g in obj.goals.all()])

@@ -10,6 +10,5 @@ gunicorn
 django-cors-headers
 cloudinary
 django-cloudinary-storage
-
-
+whitenoise
 
