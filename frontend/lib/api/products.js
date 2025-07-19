@@ -17,7 +17,7 @@ export async function getBestSellers() {
 // Filtra produtos por slug da categoria
 export async function getProductsByCategory(slug) {
   try {
-    const all = await apiFetch('products/')
+    const all = await apiFetch('products')
     return all.filter(p => p.category?.slug === slug)
   } catch (error) {
     console.error('Erro em getProductsByCategory:', error)
@@ -28,7 +28,7 @@ export async function getProductsByCategory(slug) {
 // Filtra produtos por objetivo (goal)
 export async function getProductsByGoal(goalSlug) {
   try {
-    const all = await apiFetch('products/')
+    const all = await apiFetch('products')
     return all.filter(p =>
       p.goals?.some(goal => goal.slug === goalSlug)
     )
@@ -36,4 +36,9 @@ export async function getProductsByGoal(goalSlug) {
     console.error('Erro em getProductsByGoal:', error)
     return []
   }
+}
+
+
+export async function getAllProducts() {
+  return await apiFetch('products/')
 }
