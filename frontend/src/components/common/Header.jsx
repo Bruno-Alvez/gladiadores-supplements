@@ -52,36 +52,42 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Search bar (Desktop Only) */}
-        <div className="hidden sm:block w-full max-w-md mx-4 relative z-50">
-          <div className="flex items-center bg-zinc-900 border border-zinc-700 rounded-full px-4 py-1.5">
-            <Search size={18} className="text-zinc-400" />
-            <input
-              type="text"
-              placeholder="Buscar produtos..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="bg-transparent outline-none text-sm text-white px-2 w-full placeholder:text-zinc-500"
-            />
-          </div>
+{/* Search bar (Desktop Only) */}
+<div className="hidden sm:block w-full max-w-md mx-4 relative z-50">
+  <div className="flex items-center bg-zinc-900 border border-zinc-700 rounded-full px-4 py-1.5">
+    <Search size={18} className="text-zinc-400" />
+    <input
+      type="text"
+      placeholder="Buscar produtos..."
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      className="bg-transparent outline-none text-sm text-white px-2 w-full placeholder:text-zinc-500"
+    />
+  </div>
 
-          {/* Autocomplete results */}
-          {search.length > 0 && filtered.length > 0 && (
-            <ul className="absolute top-full mt-2 bg-zinc-900 border border-zinc-700 rounded-xl shadow-lg max-h-80 overflow-y-auto w-full">
-              {filtered.map((product, index) => (
-                <li key={index}>
-                  <Link
-                    href={`/product/${product.slug || '#'}`}
-                    className="block px-4 py-2 text-sm text-white hover:bg-purple-700/30 transition"
-                  >
-                    {product.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-
+  {search.length > 1 && filtered.length > 0 && (
+    <ul className="absolute top-full mt-2 bg-zinc-900 border border-zinc-700 rounded-xl shadow-lg max-h-80 overflow-y-auto w-full">
+      {filtered.map((product, index) => (
+        <li key={index} className="border-b border-zinc-800 last:border-none">
+          <Link
+            href={`/product/${product.slug || '#'}`}
+            className="flex items-center gap-3 px-4 py-2 text-sm text-white hover:bg-purple-700/30 transition"
+          >
+            <div className="w-10 h-10 shrink-0 relative rounded overflow-hidden bg-zinc-800">
+              <Image
+                src={product.image_main || product.image_urls?.[0] || '/placeholder.jpg'}
+                alt={product.name}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <span>{product.name}</span>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
         {/* Menu (Hamburger) */}
         <div className="pr-2 sm:pr-0">
           <button

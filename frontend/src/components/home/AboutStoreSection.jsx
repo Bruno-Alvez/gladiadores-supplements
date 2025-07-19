@@ -1,15 +1,20 @@
 'use client'
 
 import Image from 'next/image'
+import { Zap } from 'lucide-react'
 
 export default function AboutStoreSection() {
   return (
-    <section id='about' className="bg-purple-500/15 text-white py-16 px-6 text-center mt-12">
+    <section id='about' className="bg-purple-500/9 text-white py-16 px-6 text-center mt-12">
       {/* Title */}
       <div className="text-center mb-12">
-        <h2 className="text-3xl sm:text-3xl font-extrabold text-white">
-          SOBRE <span className="text-purple-500">A LOJA</span>
-        </h2>
+        <div className="flex items-center justify-center gap-2">
+          <Zap size={24} className="text-purple-500 md:hidden opacity-50" />
+          <h2 className="text-3xl sm:text-3xl font-extrabold text-white">
+            SOBRE <span className="text-purple-500">A LOJA</span>
+          </h2>
+          <Zap size={24} className="text-purple-500 md:hidden opacity-50 rotate-180" />
+        </div>
         <p className="text-zinc-400 text-sm mt-2">
           Conheça a história, os valores e o propósito por trás da Gladiadores Suplementos
         </p>
@@ -46,13 +51,14 @@ export default function AboutStoreSection() {
           </p>
 
           <p className="mt-4 text-base leading-relaxed">
-            Buscamos constantemente inovação e qualidade, trazendo as últimas novidades em suplementos nacionais e importados. Cada produto em nossa prateleira é selecionado com critério, responsabilidade e compromisso com a sua saúde e seus resultados.
+            Buscamos constantemente inovação e qualidade, trazendo as últimas novidades em suplementos nacionais e importados.
+            Cada produto em nossa prateleira é selecionado com critério, responsabilidade e compromisso com a sua saúde e seus resultados.
           </p>
 
           <p className="mt-4 text-base leading-relaxed">
-            Seja você um iniciante na academia, um atleta de alto rendimento ou alguém em busca de mais disposição no dia a dia, aqui é o seu lugar. Nosso objetivo é caminhar com você em cada fase, oferecendo não só produtos, mas suporte, confiança e motivação para ir além.
-        </p>
-        
+            Seja você um iniciante na academia, um atleta de alto rendimento ou alguém em busca de mais disposição no dia a dia, aqui é o seu lugar.
+            Nosso objetivo é caminhar com você em cada fase, oferecendo não só produtos, mas suporte, confiança e motivação para ir além.
+          </p>
         </div>
       </div>
     </section>

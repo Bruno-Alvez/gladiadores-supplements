@@ -8,14 +8,14 @@ import 'keen-slider/keen-slider.min.css'
 
 const categories = [
   { name: 'Proteínas', image: '/images/categories/proteinas.jpg', href: '/categories/proteinas' },
-  { name: 'Creatinas', image: '/images/categories/pre-treinos.jpeg', href: '/categories/creatinas' },
-  { name: 'Pré Treinos', image: '/images/categories/creatinas.jpg', href: '/categories/pre-treinos' },
-  { name: 'Hipercalóricos', image: '/images/categories/hipercaloricos.jpg', href: '/categories/hipercaloricos' },
-  { name: 'Pasta de Amendoim', image: '/images/categories/gourmets.jpg', href: '/categories/pasta-de-amendoim' },
-  { name: 'Roupas & Acessórios', image: '/images/categories/roupas.jpg', href: '/categories/roupas-acessorios' },
-  { name: 'Gourmets', image: '/images/categories/bebidas.jpg', href: '/categories/gourmets' },
-  { name: 'BCAAs', image: '/images/categories/bebidas.jpg', href: '/categories/bcaas' },
-  { name: 'Emagrecedores', image: '/images/categories/bebidas.jpg', href: '/categories/emagrecedores' },
+  { name: 'Creatinas', image: '/images/categories/creatinas.jpg', href: '/categories/creatinas' },
+  { name: 'Pré Treinos', image: '/images/categories/pre-treinos.jpeg', href: '/categories/pre-treinos' },
+  { name: 'Hipercalóricos', image: '/images/categories/hiper.jpg', href: '/categories/hipercaloricos' },
+  { name: 'Pasta de Amendoim', image: '/images/categories/pasta.jpg', href: '/categories/pasta-de-amendoim' },
+  { name: 'Acessórios', image: '/images/categories/roupas.jpg', href: '/categories/roupas-acessorios' },
+  { name: 'Barras & Snacks', image: '/images/categories/barras.jpg', href: '/categories/gourmets' },
+  { name: 'BCAAs', image: '/images/categories/bcaa_2.jpg', href: '/categories/bcaas' },
+  { name: 'Vitaminas', image: '/images/categories/vitaminas.jpg', href: '/categories/vitaminas' },
 ]
 
 export default function Categories() {

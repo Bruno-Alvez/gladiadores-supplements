@@ -42,3 +42,7 @@ export async function getProductsByGoal(goalSlug) {
 export async function getAllProducts() {
   return await apiFetch('products/')
 }
+
+export async function searchProducts(query) {
+  return apiFetch(`/products/?search=${encodeURIComponent(query)}`)
+}
