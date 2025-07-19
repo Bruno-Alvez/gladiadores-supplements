@@ -45,7 +45,7 @@ export default function GoalSearchSection() {
   })
 
   return (
-    <section id='goals' className="bg-purple-500/15 text-white py-16 px-6 text-center mt-12">
+    <section id='goals' className="bg-purple-500/9 text-white py-16 px-6 text-center mt-12">
       <div className="text-center mb-12">
         <h2 className="text-3xl font-extrabold text-white">
           BUSQUE POR <span className="text-purple-500">OBJETIVO</span>
