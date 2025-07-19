@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { Menu, X, Search } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import useProductSearch from '@/hooks/useProductSearch'
+import useProductSearch from '../../../lib/hooks/useProductSearch'
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)

@@ -1,24 +1,38 @@
 'use client'
 
+import { useEffect, useState, useRef } from 'react'
 import { useKeenSlider } from 'keen-slider/react'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 import 'keen-slider/keen-slider.min.css'
 
 export default function ProductModal({ product, onClose }) {
+  const [isMounted, setIsMounted] = useState(false)
   const [sliderRef, instanceRef] = useKeenSlider({
     loop: true,
     slides: { perView: 1, spacing: 8 },
   })
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  if (!isMounted) return null
 
   const slideLeft = () => instanceRef.current?.prev()
   const slideRight = () => instanceRef.current?.next()
 
   const whatsappUrl = `https://wa.me/5512999999999?text=Ol%C3%A1%2C%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20o%20produto:%20${encodeURIComponent(product.name)}`
 
+  // Fallback para array de imagens: usa imageUrls se houver, senão cria array com image
+  const images = Array.isArray(product.imageUrls) && product.imageUrls.length > 0
+    ? product.imageUrls
+    : product.image
+      ? [product.image]
+      : []
+
   return (
     <div className="fixed inset-0 bg-black/80 z-[1000] flex items-center justify-center px-4 py-8">
       <div className="relative w-full max-w-4xl bg-zinc-900 rounded-xl shadow-2xl overflow-hidden">
-        {/* Close button */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-white hover:text-purple-500 transition"
@@ -26,12 +40,11 @@ export default function ProductModal({ product, onClose }) {
           <X size={28} />
         </button>
 
-        {/* Modal content */}
         <div className="flex flex-col lg:flex-row">
           {/* Image slider */}
           <div className="w-full lg:w-1/2 relative">
             <div ref={sliderRef} className="keen-slider">
-              {product.imageUrls.map((url, idx) => (
+              {images.map((url, idx) => (
                 <div key={idx} className="keen-slider__slide">
                   <img
                     src={url}
