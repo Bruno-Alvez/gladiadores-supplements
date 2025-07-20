@@ -21,12 +21,9 @@ export default function GoalPage() {
     async function fetchProducts() {
       try {
         const allProducts = await getAllProducts()
-
-        // Filter products where ANY goal slug matches the route slug
         const filtered = allProducts.filter(product =>
           product.goals?.some(goal => goal.slug === goalSlug)
         )
-
         setProducts(filtered)
       } catch (err) {
         console.error('Erro ao buscar produtos:', err)
@@ -45,9 +42,9 @@ export default function GoalPage() {
 
       <main className="pt-20 bg-black text-white">
         <section className="max-w-7xl mx-auto px-4 py-16">
-          <h1 className="text-3xl sm:text-4xl font-bold text-center mb-10">
+          <h1 className="text-3xl sm:text-4xl font-bold text-center mb-10 uppercase">
             OBJETIVO:{' '}
-            <span className="text-purple-500 uppercase">
+            <span className="text-purple-500">
               {goalSlug.replaceAll('-', ' ')}
             </span>
           </h1>
@@ -56,13 +53,11 @@ export default function GoalPage() {
             <p className="text-red-500 text-center mb-6">{error}</p>
           )}
 
-          {/* Mobile: carousel */}
           <MobileCarousel
             items={products}
             onSelect={setSelectedProduct}
           />
 
-          {/* Desktop: grid */}
           <DesktopGrid
             items={products}
             onSelect={setSelectedProduct}
@@ -81,7 +76,6 @@ export default function GoalPage() {
     </>
   )
 }
-
 
 function MobileCarousel({ items, onSelect }) {
   const [sliderRef, instanceRef] = useKeenSlider({
@@ -144,7 +138,6 @@ function DesktopGrid({ items, onSelect }) {
 function Card({ product, onClick }) {
   const image = product.image_main || product.image_urls?.[0] || '/placeholder.jpg'
 
-  // Normalize benefits to an array
   const benefits = Array.isArray(product.benefits)
     ? product.benefits
     : typeof product.benefits === 'string'
@@ -154,44 +147,40 @@ function Card({ product, onClick }) {
   return (
     <div
       onClick={onClick}
-      className="bg-purple-950/40 backdrop-blur rounded-2xl p-4 flex flex-col items-center text-center shadow-md hover:shadow-purple-500/20 transition cursor-pointer"
+      className="bg-gradient-to-br from-purple-950/50 via-purple-900/50 to-black/40 backdrop-blur-md rounded-2xl p-5 flex flex-col items-center text-center shadow-lg hover:shadow-purple-600/30 hover:scale-105 transition-transform duration-300 cursor-pointer w-full max-w-xs border border-purple-800/40"
     >
       <Image
         src={image}
         alt={product.name}
         width={300}
         height={300}
-        className="rounded-lg mb-4 object-contain w-full h-56 sm:h-64"
+        className="rounded-xl object-cover w-full h-56 sm:h-64 mb-4 shadow-md border border-purple-900"
       />
 
-      <h3 className="text-white text-lg font-bold mb-2 line-clamp-2">
+      <h3 className="text-white text-base font-extrabold bg-purple-900/20 px-3 py-1 rounded-md mb-3 backdrop-blur-sm">
         {product.name}
       </h3>
 
-      {/* Scroll container for long benefit lists */}
-        <div className="w-full max-h-32 overflow-y-auto sm:overflow-visible custom-scroll px-2">
-          <ul className="text-sm text-zinc-300 mb-4 space-y-1">
-              {benefits.length > 0 ? (
-                 benefits.map((benefit, i) => (
-                    <li
-                      key={i}
-                      className="flex items-center gap-2 text-left"
-                    >
-                      <Dumbbell size={16} className="text-purple-500 shrink-0" />
-                      {benefit}
-                    </li>
-                  ))
-                ) : (
-                  <li className="text-zinc-400">Sem benefícios listados</li>
-                  )}
-              </ul>
-          </div>
+      <div className="w-full max-h-32 overflow-y-auto sm:overflow-visible custom-scroll px-2 mb-4">
+        <ul className="text-sm text-zinc-300 space-y-2">
+          {benefits.length > 0 ? (
+            benefits.map((benefit, i) => (
+              <li key={i} className="flex items-center gap-2 text-left">
+                <Dumbbell size={16} className="text-purple-500" />
+                {benefit}
+              </li>
+            ))
+          ) : (
+            <li className="text-zinc-400">Sem benefícios listados</li>
+          )}
+        </ul>
+      </div>
 
       <a
         href={`https://wa.me/5512981146131?text=${encodeURIComponent(product.whatsapp_message || product.name)}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-auto bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full text-sm font-semibold transition w-full"
+        className="mt-auto bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition w-full"
         onClick={(e) => e.stopPropagation()}
       >
         Comprar via WhatsApp

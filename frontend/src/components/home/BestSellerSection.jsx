@@ -48,23 +48,27 @@ export default function BestSellersSection() {
             <div
               key={product.id}
               onClick={() => setSelectedProduct(product)}
-              className="bg-purple-950/40 backdrop-blur rounded-2xl p-4 flex flex-col items-center text-center shadow-md hover:shadow-purple-500/20 transition cursor-pointer w-full max-w-xs"
+              className="bg-gradient-to-br from-purple-950/50 via-purple-900/50 to-black rounded-2xl p-5 flex flex-col items-center text-center shadow-lg hover:shadow-purple-600/30 hover:scale-105 transition-transform duration-300 cursor-pointer w-full max-w-xs border border-purple-800/40"
             >
-              <img
-                src={image}
-                alt={product.name}
-                className="rounded-lg object-contain w-full h-56 sm:h-64 mb-4"
-              />
+              <div className="relative w-full h-56 sm:h-64 mb-4">
+                <img
+                  src={image}
+                  alt={product.name}
+                  className="rounded-xl object-cover w-full h-full shadow-md border border-purple-900"
+                />
+              </div>
 
-              <h3 className="text-white text-lg font-bold mb-2">{product.name}</h3>
+              <h3 className="text-white text-base font-extrabold bg-purple-900/20 px-3 py-1 rounded-md mb-3 backdrop-blur-sm">
+                {product.name}
+              </h3>
 
-              <div className="w-full max-h-32 overflow-y-auto sm:overflow-visible custom-scroll px-2">
-                <ul className="text-sm text-zinc-300 mb-4 space-y-1">
+              <div className="w-full max-h-32 overflow-y-auto sm:overflow-visible custom-scroll px-1 mb-4">
+                <ul className="text-sm text-zinc-300 space-y-2">
                   {benefitsArray.length > 0 ? (
                     benefitsArray.map((benefit, i) => (
                       <li key={i} className="flex items-center gap-2 text-left">
-                        <Dumbbell size={16} className="text-purple-500" />
-                        {benefit}
+                        <Dumbbell size={16} className="text-purple-500 shrink-0" />
+                        <span className="break-words">{benefit}</span>
                       </li>
                     ))
                   ) : (
@@ -77,7 +81,7 @@ export default function BestSellersSection() {
                 href={`https://wa.me/5511999999999?text=${encodeURIComponent(product.whatsapp_message || product.name)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-auto bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full text-sm font-semibold transition w-full"
+                className="mt-auto bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition w-full"
                 onClick={(e) => e.stopPropagation()}
               >
                 Comprar via WhatsApp

@@ -63,7 +63,7 @@ export default function Hero() {
         <a href="https://www.instagram.com/gladiadores.suplementos?igsh=MWpza202MTNyMGQ4bw==" target="_blank" rel="noopener noreferrer">
           <Instagram className="text-white hover:text-purple-500 transition" size={32} />
         </a>
-        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.facebook.com/share/1CaWcUt7kB/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">
           <Facebook className="text-white hover:text-purple-500 transition" size={32} />
         </a>
         <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">

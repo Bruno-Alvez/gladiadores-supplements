@@ -1,11 +1,9 @@
-'use client'
-
 import { useEffect, useState } from 'react'
-import { api } from '../api/config'
+import { searchProducts } from '../api/products'
 
 export default function useProductSearch(query) {
   const [results, setResults] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [controller, setController] = useState(null)
 
   useEffect(() => {
     if (!query || query.length < 2) {
@@ -13,28 +11,35 @@ export default function useProductSearch(query) {
       return
     }
 
-    const fetchData = async () => {
-      setLoading(true)
-      try {
-        const res = await fetch(`${api}products/`)
-        const data = await res.json()
-
-        const lowerQuery = query.toLowerCase()
-        const filtered = data.filter((product) =>
-          product.name.toLowerCase().includes(lowerQuery)
-        )
-        setResults(filtered)
-      } catch (err) {
-        console.error('Erro na busca:', err)
-        setResults([])
-      } finally {
-        setLoading(false)
-      }
+    // Cancelar requisição anterior
+    if (controller) {
+      controller.abort()
     }
 
-    const timeout = setTimeout(fetchData, 300) // debounce simples
-    return () => clearTimeout(timeout)
+    const abortController = new AbortController()
+    setController(abortController)
+
+    const timer = setTimeout(async () => {
+      try {
+        const data = await searchProducts(query, { signal: abortController.signal })
+
+        if (Array.isArray(data)) {
+          setResults(data.slice(0, 8)) // Limita a 8 resultados
+        } else {
+          setResults([])
+        }
+      } catch (error) {
+        if (error.name !== 'AbortError') {
+          console.error('Erro na busca de produtos:', error)
+        }
+      }
+    }, 400) // Debounce de 400ms
+
+    return () => {
+      clearTimeout(timer)
+      abortController.abort()
+    }
   }, [query])
 
-  return { results, loading }
+  return results
 }

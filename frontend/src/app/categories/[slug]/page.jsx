@@ -16,11 +16,7 @@ export default function CategoryPage() {
     async function fetchProducts() {
       try {
         const all = await getAllProducts()
-
-        const filtered = all.filter((product) =>
-          product.category?.slug === slug
-        )
-
+        const filtered = all.filter((product) => product.category?.slug === slug)
         setProducts(filtered)
       } catch (err) {
         console.error('Erro ao buscar produtos por categoria:', err)
@@ -33,8 +29,11 @@ export default function CategoryPage() {
 
   return (
     <section className="py-12 px-4 md:px-8 lg:px-20 bg-black text-white">
-      <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 capitalize">
-        Categoria: <span className="text-purple-500">{slug.replace('-', ' ')}</span>
+      <h2 className="text-3xl md:text-3xl font-bold text-center mb-10 uppercase">
+        CATEGORIA:{' '}
+        <span className="text-purple-500">
+          {slug.replace('-', ' ')}
+        </span>
       </h2>
 
       {error && <p className="text-red-500 text-center mb-6">{error}</p>}
@@ -52,18 +51,19 @@ export default function CategoryPage() {
             <div
               key={product.id}
               onClick={() => setSelectedProduct(product)}
-              className="bg-purple-950/40 backdrop-blur rounded-2xl p-4 flex flex-col items-center text-center shadow-md hover:shadow-purple-500/20 transition cursor-pointer w-full max-w-xs"
+              className="bg-gradient-to-br from-purple-950/50 via-purple-900/50 to-black/40 backdrop-blur-md rounded-2xl p-5 flex flex-col items-center text-center shadow-lg hover:shadow-purple-600/30 hover:scale-105 transition-transform duration-300 cursor-pointer w-full max-w-xs border border-purple-800/40"
             >
               <img
                 src={image}
                 alt={product.name}
-                className="rounded-lg object-contain w-full h-56 sm:h-64 mb-4"
+                className="rounded-xl object-cover w-full h-56 sm:h-64 mb-4 shadow-md border border-purple-900"
               />
-              <h3 className="text-white text-lg font-bold mb-2">{product.name}</h3>
+              <h3 className="text-white text-base font-extrabold bg-purple-900/20 px-3 py-1 rounded-md mb-3 backdrop-blur-sm">
+                {product.name}
+              </h3>
 
-              {/* Scroll nos benefícios no desktop */}
-              <div className="w-full max-h-32 overflow-y-auto sm:overflow-visible custom-scroll px-2">
-                <ul className="text-sm text-zinc-300 mb-4 space-y-1">
+              <div className="w-full max-h-32 overflow-y-auto sm:overflow-visible custom-scroll px-2 mb-4">
+                <ul className="text-sm text-zinc-300 space-y-2">
                   {benefitsArray.length > 0 ? (
                     benefitsArray.map((benefit, i) => (
                       <li key={i} className="flex items-center gap-2 text-left">
@@ -81,7 +81,7 @@ export default function CategoryPage() {
                 href={`https://wa.me/5512981146131?text=${encodeURIComponent(product.whatsapp_message || product.name)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-auto bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full text-sm font-semibold transition w-full"
+                className="mt-auto bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition w-full"
                 onClick={(e) => e.stopPropagation()}
               >
                 Comprar via WhatsApp
