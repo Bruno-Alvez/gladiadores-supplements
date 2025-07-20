@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 from .models import Category, Brand, Goal, Product
 from .serializers import (
     CategorySerializer,
@@ -26,9 +26,11 @@ class GoalViewSet(viewsets.ModelViewSet):
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.select_related('category', 'brand').prefetch_related('goals')
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name']
+    pagination_class = None
 
-    # Choose the appropriate serializer depending on the request method
     def get_serializer_class(self):
         if self.action in ['list', 'retrieve']:
-            return ProductDetailSerializer  # Read: use nested serializers
-        return ProductSerializer  # Write: use simple ID-based serializer
+            return ProductDetailSerializer
+        return ProductSerializer

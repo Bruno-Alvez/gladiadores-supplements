@@ -16,7 +16,7 @@ export default function Footer() {
             <Link href="https://www.instagram.com/gladiadores.suplementos?igsh=MWpza202MTNyMGQ4bw==" target="_blank">
               <Instagram className="hover:text-zinc-300 transition" />
             </Link>
-            <Link href="https://facebook.com" target="_blank">
+            <Link href="https://www.facebook.com/share/1CaWcUt7kB/?mibextid=wwXIfr" target="_blank">
               <Facebook className="hover:text-zinc-300 transition" />
             </Link>
             <Link href="https://youtube.com" target="_blank">
@@ -25,8 +25,8 @@ export default function Footer() {
           </div>
           <p className="text-sm text-zinc-200 text-center md:text-right">
             Gladiadores Suplementos Ltda<br />
-            Av. Walkir Vergani, 300 – Praia de Boissucanga<br />
-            São Sebastião – SP – CEP 01234-567
+            Av. Walkir Vergani, 166 – Praia de Boiçucanga<br />
+            São Sebastião – SP – CEP 11618107
           </p>
           {/* Vertical line fixed to the right side */}
           <div className="hidden md:block absolute right-0 top-0 bottom-0 w-px bg-white/20" />

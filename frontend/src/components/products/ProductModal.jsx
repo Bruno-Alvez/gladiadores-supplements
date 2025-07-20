@@ -61,7 +61,7 @@ export default function ProductModal({ product, onClose }) {
                 <img
                   src={url}
                   alt={`${product.name} ${idx + 1}`}
-                  className="object-contain h-full max-h-full max-w-full"
+                  className="object-cover h-full max-h-full max-w-full"
                 />
               </div>
             ))}

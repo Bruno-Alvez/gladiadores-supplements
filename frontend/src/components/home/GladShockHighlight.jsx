@@ -31,9 +31,9 @@ export default function GladShockHighlight() {
   )
 
   const images = [
+    '/images/gladshock/1.jpeg',
     '/images/gladshock/2.jpeg',
     '/images/gladshock/3.jpeg',
-    '/images/gladshock/4.jpeg',
   ]
 
   return (
