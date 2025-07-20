@@ -33,7 +33,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = '__all__'  # Inclui todos os campos do modelo + image_urls
+        fields = '__all__'
 
     def get_image_urls(self, obj):
         return obj.get_all_images()

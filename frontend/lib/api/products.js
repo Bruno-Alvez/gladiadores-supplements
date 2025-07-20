@@ -1,6 +1,6 @@
 import { apiFetch } from './index'
 
-// Retorna apenas os produtos com success === true
+// Returns only the products with success === true
 export async function getBestSellers() {
   try {
     const products = await apiFetch('products/')
@@ -14,7 +14,7 @@ export async function getBestSellers() {
   }
 }
 
-// Filtra produtos por slug da categoria
+// Filtra produtos by slug of category
 export async function getProductsByCategory(slug) {
   try {
     const all = await apiFetch('products')
@@ -25,7 +25,7 @@ export async function getProductsByCategory(slug) {
   }
 }
 
-// Filtra produtos por objetivo (goal)
+// Filter products by goal
 export async function getProductsByGoal(goalSlug) {
   try {
     const all = await apiFetch('products')
@@ -43,6 +43,7 @@ export async function getAllProducts() {
   return await apiFetch('products/')
 }
 
-export async function searchProducts(query) {
-  return apiFetch(`/products/?search=${encodeURIComponent(query)}`)
+export async function searchProducts(query, options = {}) {
+  return apiFetch(`products/?search=${encodeURIComponent(query)}`, options)
 }
+
