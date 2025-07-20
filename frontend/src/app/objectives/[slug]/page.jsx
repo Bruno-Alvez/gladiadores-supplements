@@ -14,27 +14,23 @@ import { getAllProducts } from '../../../../lib/api/products'
 export default function GoalPage() {
   const { slug: goalSlug } = useParams()
   const [selectedProduct, setSelectedProduct] = useState(null)
-  const [productsByBrand, setProductsByBrand] = useState({})
+  const [products, setProducts] = useState([])
+  const [error, setError] = useState('')
 
   useEffect(() => {
     async function fetchProducts() {
       try {
         const allProducts = await getAllProducts()
 
+        // Filter products where ANY goal slug matches the route slug
         const filtered = allProducts.filter(product =>
           product.goals?.some(goal => goal.slug === goalSlug)
         )
 
-        const grouped = filtered.reduce((acc, product) => {
-          const brand = product.brand?.name || 'Outros'
-          acc[brand] = acc[brand] || []
-          acc[brand].push(product)
-          return acc
-        }, {})
-
-        setProductsByBrand(grouped)
-      } catch (error) {
-        console.error('Erro ao buscar produtos:', error)
+        setProducts(filtered)
+      } catch (err) {
+        console.error('Erro ao buscar produtos:', err)
+        setError('Erro ao carregar os produtos para este objetivo.')
       }
     }
 
@@ -56,16 +52,29 @@ export default function GoalPage() {
             </span>
           </h1>
 
-          {Object.entries(productsByBrand).map(([brand, items], idx) => (
-            <div key={idx} className="mb-16">
-              <Carousel items={items} onSelect={setSelectedProduct} />
-            </div>
-          ))}
+          {error && (
+            <p className="text-red-500 text-center mb-6">{error}</p>
+          )}
+
+          {/* Mobile: carousel */}
+          <MobileCarousel
+            items={products}
+            onSelect={setSelectedProduct}
+          />
+
+          {/* Desktop: grid */}
+          <DesktopGrid
+            items={products}
+            onSelect={setSelectedProduct}
+          />
         </section>
       </main>
 
       {selectedProduct && (
-        <ProductModal product={selectedProduct} onClose={() => setSelectedProduct(null)} />
+        <ProductModal
+          product={selectedProduct}
+          onClose={() => setSelectedProduct(null)}
+        />
       )}
 
       <Footer />
@@ -73,7 +82,8 @@ export default function GoalPage() {
   )
 }
 
-function Carousel({ items, onSelect }) {
+
+function MobileCarousel({ items, onSelect }) {
   const [sliderRef, instanceRef] = useKeenSlider({
     loop: false,
     mode: 'free-snap',
@@ -82,53 +92,64 @@ function Carousel({ items, onSelect }) {
       '(min-width: 480px)': {
         slides: { perView: 2, spacing: 16 },
       },
-      '(min-width: 1024px)': {
-        slides: false,
-      },
     },
   })
 
+  if (!items?.length) return null
+
   return (
-    <>
-      <div className="block lg:hidden relative">
-        <div ref={sliderRef} className="keen-slider px-2">
-          {items.map((product, idx) => (
-            <div className="keen-slider__slide" key={idx}>
-              <Card product={product} onClick={() => onSelect(product)} />
-            </div>
-          ))}
-        </div>
-
-        <button
-          onClick={() => instanceRef.current?.prev()}
-          className="absolute left-0 top-1/2 -translate-y-1/2 bg-black/70 p-2 rounded-full text-white z-10"
-        >
-          <ChevronLeft size={20} />
-        </button>
-        <button
-          onClick={() => instanceRef.current?.next()}
-          className="absolute right-0 top-1/2 -translate-y-1/2 bg-black/70 p-2 rounded-full text-white z-10"
-        >
-          <ChevronRight size={20} />
-        </button>
-      </div>
-
-      <div className="hidden lg:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+    <div className="block lg:hidden relative mb-16">
+      <div ref={sliderRef} className="keen-slider px-2">
         {items.map((product, idx) => (
-          <Card key={idx} product={product} onClick={() => onSelect(product)} />
+          <div className="keen-slider__slide" key={idx}>
+            <Card product={product} onClick={() => onSelect(product)} />
+          </div>
         ))}
       </div>
-    </>
+
+      <button
+        onClick={() => instanceRef.current?.prev()}
+        className="absolute left-0 top-1/2 -translate-y-1/2 bg-black/70 p-2 rounded-full text-white z-10"
+        aria-label="Anterior"
+      >
+        <ChevronLeft size={20} />
+      </button>
+      <button
+        onClick={() => instanceRef.current?.next()}
+        className="absolute right-0 top-1/2 -translate-y-1/2 bg-black/70 p-2 rounded-full text-white z-10"
+        aria-label="Próximo"
+      >
+        <ChevronRight size={20} />
+      </button>
+    </div>
+  )
+}
+
+function DesktopGrid({ items, onSelect }) {
+  if (!items?.length) return null
+
+  return (
+    <div className="hidden lg:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
+      {items.map((product) => (
+        <Card
+          key={product.id}
+          product={product}
+          onClick={() => onSelect(product)}
+        />
+      ))}
+    </div>
   )
 }
 
 function Card({ product, onClick }) {
   const image = product.image_main || product.image_urls?.[0] || '/placeholder.jpg'
+
+  // Normalize benefits to an array
   const benefits = Array.isArray(product.benefits)
     ? product.benefits
     : typeof product.benefits === 'string'
-    ? product.benefits.split(',').map(b => b.trim())
-    : []
+      ? product.benefits.split(',').map(b => b.trim()).filter(Boolean)
+      : []
 
   return (
     <div
@@ -142,17 +163,32 @@ function Card({ product, onClick }) {
         height={300}
         className="rounded-lg mb-4 object-contain w-full h-56 sm:h-64"
       />
-      <h3 className="text-white text-lg font-bold mb-2">{product.name}</h3>
-      <ul className="text-sm text-zinc-300 mb-4 space-y-1">
-        {benefits.map((benefit, i) => (
-          <li key={i} className="flex items-center justify-center gap-2">
-            <Dumbbell size={16} className="text-purple-500" />
-            {benefit}
-          </li>
-        ))}
-      </ul>
+
+      <h3 className="text-white text-lg font-bold mb-2 line-clamp-2">
+        {product.name}
+      </h3>
+
+      {/* Scroll container for long benefit lists */}
+        <div className="w-full max-h-32 overflow-y-auto sm:overflow-visible custom-scroll px-2">
+          <ul className="text-sm text-zinc-300 mb-4 space-y-1">
+              {benefits.length > 0 ? (
+                 benefits.map((benefit, i) => (
+                    <li
+                      key={i}
+                      className="flex items-center gap-2 text-left"
+                    >
+                      <Dumbbell size={16} className="text-purple-500 shrink-0" />
+                      {benefit}
+                    </li>
+                  ))
+                ) : (
+                  <li className="text-zinc-400">Sem benefícios listados</li>
+                  )}
+              </ul>
+          </div>
+
       <a
-        href={`https://wa.me/5511999999999?text=${encodeURIComponent(product.whatsapp_message || product.name)}`}
+        href={`https://wa.me/5512981146131?text=${encodeURIComponent(product.whatsapp_message || product.name)}`}
         target="_blank"
         rel="noopener noreferrer"
         className="mt-auto bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full text-sm font-semibold transition w-full"

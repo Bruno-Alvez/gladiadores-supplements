@@ -4,7 +4,7 @@ import { Zap } from 'lucide-react'
 
 export default function SupplementsSection() {
   return (
-    <section className="relative bg-purple-500/15 text-white py-16 px-6 text-center mt-12 overflow-hidden">
+    <section className="relative bg-purple-500/9 text-white py-16 px-6 text-center mt-12 overflow-hidden">
       {/* Raio esquerdo (desktop) */}
       <div className="hidden md:flex absolute left-0 top-0 h-full items-center">
         <Zap size={80} className="text-purple-600 opacity-30" />

@@ -12,10 +12,11 @@ const categories = [
   { name: 'Pré Treinos', image: '/images/categories/pre-treinos.jpeg', href: '/categories/pre-treinos' },
   { name: 'Hipercalóricos', image: '/images/categories/hiper.jpg', href: '/categories/hipercaloricos' },
   { name: 'Pasta de Amendoim', image: '/images/categories/pasta.jpg', href: '/categories/pasta-de-amendoim' },
-  { name: 'Acessórios', image: '/images/categories/roupas.jpg', href: '/categories/roupas-acessorios' },
+  { name: 'Acessórios', image: '/images/categories/roupas.jpeg', href: '/categories/roupas-acessorios' },
   { name: 'Barras & Snacks', image: '/images/categories/barras.jpg', href: '/categories/gourmets' },
   { name: 'BCAAs', image: '/images/categories/bcaa_2.jpg', href: '/categories/bcaas' },
   { name: 'Vitaminas', image: '/images/categories/vitaminas.jpg', href: '/categories/vitaminas' },
+  { name: 'Glutaminas', image: '/images/categories/beta-dux.webp', href: '/categories/glutaminas' },
 ]
 
 export default function Categories() {
