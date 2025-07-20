@@ -3,7 +3,7 @@ import Header from '@/components/common/Header'
 
 export const metadata = {
   title: 'Gladiadores Suplementos',
-  description: 'Product catalog with WhatsApp integration',
+  description: 'Seu portal de saúde e performance',
 };
 
 export default function RootLayout({ children }) {

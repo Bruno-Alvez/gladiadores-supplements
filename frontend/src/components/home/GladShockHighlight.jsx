@@ -39,8 +39,8 @@ export default function GladShockHighlight() {
   return (
     <section id='gladshock' className="w-full bg-black py-16 px-4 mt-14">
       <div className="text-center mb-12">
-        <h2 className="text-4xl font-extrabold text-white">
-          CONHEÇA O <span className="text-purple-500">GLADSHOCK</span>
+        <h2 className="text-3xl font-extrabold text-white">
+          CONHEÇA O PRÉ TREINO <span className="text-purple-500">GLADSHOCK</span>
         </h2>
         <p className="text-zinc-400 text-base mt-2 max-w-xl mx-auto">
           O pré-treino mais potente da linha Gladiadores. Energia, foco e performance em uma fórmula única.
@@ -97,7 +97,7 @@ export default function GladShockHighlight() {
             ))}
           </ul>
           <Link
-            href="https://wa.me/5511999999999?text=Olá! Quero saber mais sobre o GladShock."
+            href="https://wa.me/5512981146131?text=Olá! Quero saber mais sobre o GladShock."
             className="inline-block mt-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg transition"
             target="_blank"
           >

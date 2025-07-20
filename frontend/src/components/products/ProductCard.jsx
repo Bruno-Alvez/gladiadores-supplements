@@ -41,25 +41,28 @@ export default function ProductCard({ product, onClick }) {
 
       <h3 className="text-white text-lg font-bold mb-2">{product.name}</h3>
 
-      <ul className="text-sm text-zinc-300 mb-4 space-y-1">
-        {benefitsArray.length > 0 ? (
-          benefitsArray.map((benefit, index) => (
-            <li key={index} className="flex items-center justify-center gap-2">
-              <Dumbbell size={16} className="text-purple-500" />
-              {benefit}
-            </li>
-          ))
-        ) : (
-          <li className="text-zinc-400">Sem benefícios listados</li>
-        )}
-      </ul>
+      {/* Lista de Benefícios com limite de altura no desktop */}
+      <div className="w-full max-h-32 overflow-y-auto sm:overflow-visible custom-scroll px-2">
+        <ul className="text-sm text-zinc-300 mb-4 space-y-1">
+          {benefitsArray.length > 0 ? (
+            benefitsArray.map((benefit, index) => (
+              <li key={index} className="flex items-center gap-2 text-left">
+                <Dumbbell size={16} className="text-purple-500" />
+                {benefit}
+              </li>
+            ))
+          ) : (
+            <li className="text-zinc-400">Sem benefícios listados</li>
+          )}
+        </ul>
+      </div>
 
       <button
         className="mt-auto bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full text-sm font-semibold transition"
         onClick={(e) => {
           e.stopPropagation()
           window.open(
-            `https://wa.me/5512999999999?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20o%20produto%20*${product.name}*`,
+            `https://wa.me/5512981146131?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20o%20produto%20*${product.name}*`,
             '_blank'
           )
         }}

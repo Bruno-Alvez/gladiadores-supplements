@@ -31,7 +31,7 @@ export default function ProductModal({ product, onClose }) {
   const slideLeft = () => instanceRef.current?.prev()
   const slideRight = () => instanceRef.current?.next()
 
-  const whatsappUrl = `https://wa.me/5512999999999?text=Ol%C3%A1%2C%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20o%20produto:%20${encodeURIComponent(product.name)}`
+  const whatsappUrl = `https://wa.me/5512981146131?text=Ol%C3%A1%2C%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20o%20produto:%20${encodeURIComponent(product.name)}`
 
   const images = Array.isArray(product.image_urls) && product.image_urls.length > 0
     ? product.image_urls

@@ -26,8 +26,8 @@ export default function BestSellersSection() {
 
   return (
     <section id="sucessos" className="py-12 px-4 md:px-8 lg:px-20 bg-black text-white">
-      <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">
-        Sucessos de <span className="text-purple-500">Venda</span>
+      <h2 className="text-3xl md:text-3xl font-bold text-center mb-10">
+        SUCESSO DE <span className="text-purple-500">VENDAS</span>
       </h2>
 
       {error && (
@@ -55,20 +55,23 @@ export default function BestSellersSection() {
                 alt={product.name}
                 className="rounded-lg object-contain w-full h-56 sm:h-64 mb-4"
               />
+
               <h3 className="text-white text-lg font-bold mb-2">{product.name}</h3>
 
-              <ul className="text-sm text-zinc-300 mb-4 space-y-1">
-                {benefitsArray.length > 0 ? (
-                  benefitsArray.map((benefit, i) => (
-                    <li key={i} className="flex items-center justify-center gap-2">
-                      <Dumbbell size={16} className="text-purple-500" />
-                      {benefit}
-                    </li>
-                  ))
-                ) : (
-                  <li className="text-zinc-400">Sem benefícios listados</li>
-                )}
-              </ul>
+              <div className="w-full max-h-32 overflow-y-auto sm:overflow-visible custom-scroll px-2">
+                <ul className="text-sm text-zinc-300 mb-4 space-y-1">
+                  {benefitsArray.length > 0 ? (
+                    benefitsArray.map((benefit, i) => (
+                      <li key={i} className="flex items-center gap-2 text-left">
+                        <Dumbbell size={16} className="text-purple-500" />
+                        {benefit}
+                      </li>
+                    ))
+                  ) : (
+                    <li className="text-zinc-400">Sem benefícios listados</li>
+                  )}
+                </ul>
+              </div>
 
               <a
                 href={`https://wa.me/5511999999999?text=${encodeURIComponent(product.whatsapp_message || product.name)}`}

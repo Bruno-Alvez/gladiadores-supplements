@@ -10,7 +10,7 @@ export default function FloatingWhatsapp() {
 
       {/* WhatsApp button */}
       <a
-        href="https://wa.me/5512999999999?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%21"
+        href="https://wa.me/5512981146131?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%21"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Fale com a loja no WhatsApp"
