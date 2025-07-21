@@ -69,10 +69,12 @@ export default function ProductForm() {
     } else if (type === 'checkbox') {
       setFormData((prev) => ({ ...prev, [name]: checked }));
     } else if (type === 'file' && name === 'images') {
-      const selected = Array.from(files).slice(0, 10);
-      setFormData((prev) => ({ ...prev, images: selected }));
-      const previews = selected.map((file) => URL.createObjectURL(file));
-      setImagePreviews(previews);
+      const selected = Array.from(files).slice(0, 10 - formData.images.length);
+      const updatedImages = [...formData.images, ...selected];
+      setFormData((prev) => ({ ...prev, images: updatedImages }));
+
+      const newPreviews = selected.map((file) => URL.createObjectURL(file));
+      setImagePreviews((prev) => [...prev, ...newPreviews]);
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
@@ -89,8 +91,6 @@ export default function ProductForm() {
         value.forEach((file, i) => data.append(`image_${i + 1}`, file));
       } else if (key === 'goals') {
         value.forEach((v) => data.append('goals', v));
-      } else if (key === 'benefits') {
-        data.append('benefits', value || '');
       } else {
         data.append(key, value);
       }
@@ -128,15 +128,15 @@ export default function ProductForm() {
   if (!categories || !brands || !goals) return <p className="text-center text-white">🔄 Carregando formulário...</p>;
 
   return (
-    <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-zinc-900 p-6 rounded-2xl shadow-xl">
+    <form onSubmit={handleSubmit} className="mt-24 grid grid-cols-1 md:grid-cols-2 gap-6 bg-zinc-900 p-6 rounded-2xl shadow-xl">
       {error && <p className="text-red-500 md:col-span-2">{error}</p>}
 
-      <input name="name" placeholder="Ex: Whey Integralmedica" value={formData.name} onChange={handleChange} required className="input" />
-      <input name="slug" placeholder="Ex: whey-integralmedica" value={formData.slug} onChange={handleChange} required className="input" />
-      <textarea name="description" placeholder="Ex: Proteína de rápida absorção, ideal para recuperação muscular." value={formData.description} onChange={handleChange} required className="input md:col-span-2" />
-      <input name="whatsapp_message" placeholder="Ex: Olá, vim pelo site e quero mais informações sobre o produto: Whey." value={formData.whatsapp_message} onChange={handleChange} required className="input" />
-      <input name="price" type="number" placeholder="Ex: 89.90" value={formData.price} onChange={handleChange} required className="input" />
-      <input name="benefits" placeholder="Ex: RápidaAbsorção,SaúdeMuscular,Recuperação,Força" value={formData.benefits} onChange={handleChange} className="input" />
+      <input name="name" placeholder="Digite o nome do produto (Ex: Whey Integralmedica)" value={formData.name} onChange={handleChange} required className="input" />
+      <input name="slug" placeholder="Digite um slug para o produto (Ex: whey-integralmedica)" value={formData.slug} onChange={handleChange} required className="input" />
+      <textarea name="description" placeholder="Digite uma descrição para o prdouto (Ex: Proteína de rápida absorção, ideal para recuperação muscular.)" value={formData.description} onChange={handleChange} required className="input md:col-span-2" />
+      <input name="whatsapp_message" placeholder="Whatsapp (Ex: Olá, vim pelo site e quero mais informações sobre o produto: Whey.)" value={formData.whatsapp_message} onChange={handleChange} required className="input" />
+      <input name="price" type="number" placeholder="Digite o preço do produto (Ex: 89.90)" value={formData.price} onChange={handleChange} required className="input" />
+      <input name="benefits" placeholder="Benefícios (Ex: RápidaAbsorção,SaúdeMuscular,Recuperação,Força)" value={formData.benefits} onChange={handleChange} className="input" />
 
       <select name="category" value={formData.category} onChange={handleChange} required className="input">
         <option value="">Selecione a Categoria</option>

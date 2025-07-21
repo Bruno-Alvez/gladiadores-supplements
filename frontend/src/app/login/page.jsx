@@ -14,7 +14,7 @@ export default function LoginPage() {
     setError(null)
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/token/`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/token/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -25,7 +25,7 @@ export default function LoginPage() {
       if (res.ok) {
         localStorage.setItem('access', data.access)
         localStorage.setItem('refresh', data.refresh)
-        router.push('/admin') // redireciona pro painel
+        router.push('/admin/products')
       } else {
         setError('Usuário ou senha inválidos')
       }
