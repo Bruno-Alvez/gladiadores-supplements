@@ -97,7 +97,7 @@ export default function Header() {
 
         {/* Menu (Desktop) */}
         <div className="hidden sm:flex items-center gap-6 text-white ml-auto">
-          <Link href="#gladshock" className={linkClass('gladshock')}>Glad Shock</Link>
+          <Link href="#gladshock" className={linkClass('gladshock')}>Gladshock</Link>
           <Link href="#about" className={linkClass('about')}>Sobre Nós</Link>
           <Link href="#goals" className={linkClass('goals')}>Iniciantes</Link>
           <Link href="#testimonials" className={linkClass('testimonials')}>Depoimentos</Link>

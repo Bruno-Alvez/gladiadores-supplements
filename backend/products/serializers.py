@@ -4,25 +4,25 @@ from .models import Category, Brand, Goal, Product
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['id', 'name', 'slug', 'image']
+        fields = '__all__'
 
 
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand
-        fields = ['id', 'name', 'slug', 'image']
+        fields = '__all__'
 
 
 class GoalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Goal
-        fields = ['id', 'name', 'slug', 'image']
+        fields = '__all__'
 
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ['id', 'name', 'slug', 'image']
+        fields = '__all__'
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
