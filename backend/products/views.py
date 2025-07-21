@@ -1,4 +1,5 @@
 from rest_framework import viewsets, filters
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .models import Category, Brand, Goal, Product
 from .serializers import (
     CategorySerializer,
@@ -34,3 +35,8 @@ class ProductViewSet(viewsets.ModelViewSet):
         if self.action in ['list', 'retrieve']:
             return ProductDetailSerializer
         return ProductSerializer
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
