@@ -11,7 +11,6 @@ export default function useProductSearch(query) {
       return
     }
 
-    // Cancelar requisição anterior
     if (controller) {
       controller.abort()
     }
@@ -24,7 +23,7 @@ export default function useProductSearch(query) {
         const data = await searchProducts(query, { signal: abortController.signal })
 
         if (Array.isArray(data)) {
-          setResults(data.slice(0, 8)) // Limita a 8 resultados
+          setResults(data.slice(0, 8))
         } else {
           setResults([])
         }

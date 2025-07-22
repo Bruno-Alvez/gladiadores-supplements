@@ -91,6 +91,12 @@ export default function ProductForm() {
         value.forEach((file, i) => data.append(`image_${i + 1}`, file));
       } else if (key === 'goals') {
         value.forEach((v) => data.append('goals', v));
+      } else if (key === 'benefits') {
+        const benefitsArray = value
+          .split(',')
+          .map((b) => b.trim())
+          .filter(Boolean);
+        data.append('benefits', JSON.stringify(benefitsArray));
       } else {
         data.append(key, value);
       }
@@ -106,7 +112,19 @@ export default function ProductForm() {
       if (!res.ok) throw new Error();
 
       alert('✅ Produto cadastrado com sucesso!');
-      setFormData({ name: '', slug: '', description: '', whatsapp_message: '', price: '', success: false, benefits: '', category: '', brand: '', goals: [], images: [] });
+      setFormData({
+        name: '',
+        slug: '',
+        description: '',
+        whatsapp_message: '',
+        price: '',
+        success: false,
+        benefits: '',
+        category: '',
+        brand: '',
+        goals: [],
+        images: [],
+      });
       setImagePreviews([]);
     } catch (err) {
       setError('Erro ao salvar produto. Verifique os campos.');
