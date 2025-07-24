@@ -43,12 +43,12 @@ export default function ProductModal({ product, onClose }) {
     <div className="fixed inset-0 z-[1000] bg-black/80 flex items-center justify-center px-4 py-8">
       <div
         ref={modalRef}
-        className="relative w-full max-w-6xl bg-zinc-900 rounded-xl shadow-2xl overflow-hidden flex flex-col lg:flex-row"
+        className="relative w-full max-w-6xl bg-zinc-900 rounded-xl shadow-2xl overflow-hidden flex flex-col lg:flex-row overflow-y-auto max-h-screen lg:overflow-visible lg:max-h-none"
       >
-        {/* Botão de fechar */}
+        {/* Close Buttom */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-white hover:text-purple-500 transition z-10"
+          className="absolute top-4 right-4 text-purple-500 hover:text-purple-900 transition z-10"
         >
           <X size={28} />
         </button>
@@ -67,7 +67,7 @@ export default function ProductModal({ product, onClose }) {
             ))}
           </div>
 
-          {/* Navegação */}
+          {/* Navegation */}
           <div className="absolute inset-0 flex justify-between items-center px-4">
             <button onClick={slideLeft}>
               <ChevronLeft className="text-purple-500 hover:text-black bg-white rounded-full p-1 transition" size={40} />
@@ -78,7 +78,7 @@ export default function ProductModal({ product, onClose }) {
           </div>
         </div>
 
-        {/* Conteúdo */}
+        {/* Content */}
         <div className="w-full lg:w-1/2 p-6 lg:p-10 flex flex-col justify-between">
           <div>
             <h2 className="text-2xl lg:text-3xl font-bold text-white mb-4">

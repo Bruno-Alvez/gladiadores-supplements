@@ -5,11 +5,15 @@ import { Menu, X, Search } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import useProductSearch from '../../../lib/hooks/useProductSearch'
+import { useRouter, usePathname } from 'next/navigation'
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [search, setSearch] = useState('')
   const [activeSection, setActiveSection] = useState(null)
+
+  const router = useRouter()
+  const pathname = usePathname()
 
   const filtered = useProductSearch(search)
 
@@ -29,6 +33,18 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  const handleAnchorClick = (id) => {
+    setMenuOpen(false)
+    if (pathname === '/') {
+      const section = document.getElementById(id)
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' })
+      }
+    } else {
+      router.push('/#' + id)
+    }
+  }
 
   const linkClass = (id) =>
     `transition hover:text-purple-500 ${
@@ -103,11 +119,11 @@ export default function Header() {
         {/* Dropdown menu - shown when menu is open */}
         {menuOpen && (
           <nav className="flex flex-col gap-4 bg-black bg-opacity-90 p-6 text-white">
-            <Link href="#gladshock" className={linkClass('gladshock')}>Gladshock</Link>
-            <Link href="#about" className={linkClass('about')}>Sobre Nós</Link>
-            <Link href="#goals" className={linkClass('goals')}>Iniciantes</Link>
-            <Link href="#testimonials" className={linkClass('testimonials')}>Depoimentos</Link>
-            <Link href="#faq" className={linkClass('faq')}>Principais Dúvidas</Link>
+            <button onClick={() => handleAnchorClick('gladshock')} className={linkClass('gladshock')}>Gladshock</button>
+            <button onClick={() => handleAnchorClick('about')} className={linkClass('about')}>Sobre Nós</button>
+            <button onClick={() => handleAnchorClick('goals')} className={linkClass('goals')}>Iniciantes</button>
+            <button onClick={() => handleAnchorClick('testimonials')} className={linkClass('testimonials')}>Depoimentos</button>
+            <button onClick={() => handleAnchorClick('faq')} className={linkClass('faq')}>Principais Dúvidas</button>
           </nav>
         )}
       </div>

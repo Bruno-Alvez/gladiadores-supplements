@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect } from 'react'
 import AboutStoreSection from '@/components/home/AboutStoreSection'
 import BestSellersSection from '@/components/home/BestSellerSection'
 import Categories from '@/components/home/Categories'
@@ -12,6 +15,19 @@ import SupplementsSection from '@/components/home/SupplementsSection'
 import TestimonialsSection from '@/components/home/TestimonialsSection'
 
 export default function Home() {
+   useEffect(() => {
+    const hash = window.location.hash
+    if (hash) {
+      const id = hash.replace('#', '')
+      const el = document.getElementById(id)
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth' })
+        }, 300)
+      }
+    }
+  }, [])
+
   return (
     <main>
       <Hero />
