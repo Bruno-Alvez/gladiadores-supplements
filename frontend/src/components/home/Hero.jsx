@@ -110,18 +110,6 @@ export default function Hero() {
           </a>
         </div>
       </section>
-
-      {/* Hero Divider */}
-      <div className="w-full">
-        <Image
-          src="/images/hero/hero-divider.jpg"
-          alt="Decorative divider between sections"
-          width={1920}
-          height={120}
-          className="w-full h-full object-cover"
-          priority
-        />
-      </div>
     </>
   )
 }
